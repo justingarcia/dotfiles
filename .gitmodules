@@ -1,0 +1,9 @@
+[submodule "vim/pack/plugins/start/lightline.vim"]
+	path = vim/pack/plugins/start/lightline.vim
+	url = https://github.com/itchyny/lightline.vim.git
+[submodule "vim/pack/plugins/start/ultisnips"]
+	path = vim/pack/plugins/start/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "vim/pack/plugins/start/auto-pairs"]
+	path = vim/pack/plugins/start/auto-pairs
+	url = https://github.com/jiangmiao/auto-pairs.git

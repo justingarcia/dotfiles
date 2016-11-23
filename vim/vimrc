@@ -1,6 +1,6 @@
 " PATHOGEN ====================================================================
 " Enable Pathogen for plugin installs
-execute pathogen#infect()
+"execute pathogen#infect()
 
 " GENERAL SETTINGS ============================================================
 " View line number
@@ -52,18 +52,18 @@ colorscheme justin
 
 " AIRLINE SETTINGS ============================================================
 " Status line
-set laststatus=2
-
-" vim-airline settings
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#tab_min_count = 2
-let g:airline#extensions#tabline#buffer_min_count = 2
+"set laststatus=2
+"
+"" vim-airline settings
+"let g:airline_powerline_fonts = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#tab_min_count = 2
+"let g:airline#extensions#tabline#buffer_min_count = 2
 
 " NEOCOMPLETE =================================================================
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_auto_select = 1
-let g:neocomplete#enable_refresh_always = 1
+"let g:neocomplete#enable_at_startup = 1
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#enable_refresh_always = 1
 
 " ULTISNIPS ===================================================================
 " Snippet directory
@@ -77,10 +77,10 @@ let g:UltiSnipsJumpBackwardTrigger = '<F11>'
 inoremap <F11> <nop>
 
 " VIMTEX SETTINGS =============================================================
-let g:vimtex_motion_matchparen = 0
-let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_latexmk_options = '-verbose -file-line-error -gg -xelatex'
-let g:vimtex_latexmk_continuous = 0
+"let g:vimtex_motion_matchparen = 0
+"let g:vimtex_view_general_viewer = 'zathura'
+"let g:vimtex_latexmk_options = '-verbose -file-line-error -gg -xelatex'
+"let g:vimtex_latexmk_continuous = 0
 
 " MACROS ======================================================================
 " Leader Key ------------------------------------------------------------------
