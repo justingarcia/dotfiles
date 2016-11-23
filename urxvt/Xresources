@@ -1,0 +1,67 @@
+! General
+URxvt.borderless:               false
+URxvt.internalBorder:           5
+URxvt.externalBorder:           5
+URxvt.scrollBar:                false
+URxvt.secondaryScroll:          true
+URxvt.cursorBlink:              true
+
+! Keybindings
+URxvt.keysym.Shift-space:       \033[24~
+URxvt.keysym.C-space:           \033[23~
+
+! Fonts
+!xft.dpi:                        96
+!xft.antialias:                  true
+!xft.rgba:                       none
+!xft.hinting:                    true
+!xft.autohint:                   true
+!xft.hintstyle:                  hintslight
+URxvt.font:                     xft:Inconsolata\\-dz for Powerline:pixelsize=10:dz
+URxvt.boldFont:                 xft:Inconsolata\\-dz for Powerline:pixelsize=10:Bold
+URxvt.italicFont:               xft:Inconsolata\\-dz for Powerline:pixelsize=10:Italic
+URxvt.letterSpace:              -1
+
+! Background Transparency
+URxvt.transparent:              false
+URxvt.shading:                  75 
+
+! Focus fading
+URxvt.fading:                   25
+
+! Colors ----------------------------------------------------------------------
+*cursorColor:                   #d7005f
+*background:                    #121212
+*foreground:                    #ffffd7
+! black dark/light
+! x233_Grey7 ctermfg=233 guifg=#121212 rgb=18,18,18
+*color0:                        #121212
+*color8:                        #121212
+! red dark/light
+! x161_DeepPink3 ctermfg=161 guifg=#d7005f rgb=215,0,95
+*color1:                        #d7005f
+*color9:                        #d7005f
+! green dark/light
+! x150_DarkSeaGreen3 ctermfg=150 guifg=#afd787 rgb=175,215,135
+*color2:                        #afd787
+*color10:                       #afd787
+! yellow dark/light
+! x215_SandyBrown ctermfg=215 guifg=#ffaf5f rgb=255,175,95
+*color3:                        #ffaf5f
+*color11:                       #ffaf5f
+! blue dark/light
+! x039_DeepSkyBlue1 ctermfg=39 guifg=#00afff rgb=0,175,255
+*color4:                        #00afff
+*color12:                       #00afff
+! magenta dark/light
+! x161_DeepPink3 ctermfg=161 guifg=#d7005f rgb=215,0,95
+*color5:                        #d7005f
+*color13:                       #d7005f
+! cyan dark/light
+! x122_Aquamarine1 ctermfg=122 guifg=#87ffd7 rgb=135,255,215
+*color6:                        #87ffd7
+*color14:                       #87ffd7
+! white dark/light
+! x230_Cornsilk1 ctermfg=230 guifg=#ffffd7 rgb=255,255,215
+*color7:                        #ffffd7
+*color15:                       #ffffd7

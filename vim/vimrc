@@ -1,0 +1,114 @@
+" PATHOGEN ====================================================================
+" Enable Pathogen for plugin installs
+execute pathogen#infect()
+
+" GENERAL SETTINGS ============================================================
+" View line number
+set number
+
+" Key delays
+set timeoutlen=250 ttimeoutlen=25
+
+" Tab format options (4 space tab)
+set shiftwidth=4
+set expandtab
+set smarttab
+
+" Filetype dependent indenting
+filetype plugin indent on
+
+" Maximum line length at 79
+set textwidth=79
+
+" Auto insert comment leader
+set formatoptions=ro
+
+" Lock cursor to middle of screen
+set scrolloff=999
+
+" Performance related
+set synmaxcol=127
+set lazyredraw
+let loaded_matchparen=1
+
+" Disable folding
+set nofoldenable
+
+" COLOR SETTINGS ==============================================================
+" No | characters on vertical split -- space after \
+set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:-
+
+" Color delimitter at column 81 (allows for 1 column margin)
+let &colorcolumn=join(range(81,999),",")
+
+" Enable code syntax highlighting
+syntax enable
+
+" Enable cursor line highlighting
+set cursorline
+
+" Color scheme
+colorscheme justin
+
+" AIRLINE SETTINGS ============================================================
+" Status line
+set laststatus=2
+
+" vim-airline settings
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#buffer_min_count = 2
+
+" NEOCOMPLETE =================================================================
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_refresh_always = 1
+
+" ULTISNIPS ===================================================================
+" Snippet directory
+let g:UltiSnipsSnippetDirectories=['after/ultisnips']
+let g:UltiSnipsExpandTrigger = '<Tab>'
+" In Xresources: <S-Space> = <F12>
+let g:UltiSnipsJumpForwardTrigger = '<F12>'
+inoremap <F12> <nop>
+" In Xresources: <C-Space> = <F12>
+let g:UltiSnipsJumpBackwardTrigger = '<F11>'
+inoremap <F11> <nop>
+
+" VIMTEX SETTINGS =============================================================
+let g:vimtex_motion_matchparen = 0
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_latexmk_options = '-verbose -file-line-error -gg -xelatex'
+let g:vimtex_latexmk_continuous = 0
+
+" MACROS ======================================================================
+" Leader Key ------------------------------------------------------------------
+map <Space> <Leader>
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :q<CR>
+
+" Yanking Line Consistency ----------------------------------------------------
+nnoremap Y y$
+
+" Toggle Relative Numbering ---------------------------------------------------
+function! NumberToggle()
+    if (&relativenumber == 1)
+        set number
+        set norelativenumber
+    else
+        set nonumber
+        set relativenumber
+    endif
+endfunction
+nnoremap <Leader>t :call NumberToggle()<CR>
+
+" Horizontal Line -------------------------------------------------------------
+function! FillLine(char)
+    set ve=all
+    exe "normal $1lv79|r" . a:char
+    set ve=
+endfunction
+inoremap ---<CR> <Esc>:call FillLine('-')<CR>o
+inoremap ___<CR> <Esc>:call FillLine('_')<CR>o
+inoremap ===<CR> <Esc>:call FillLine('=')<CR>o
