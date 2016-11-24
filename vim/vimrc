@@ -46,7 +46,7 @@ set cursorline
 " Color scheme
 colorscheme justin
 
-" AIRLINE SETTINGS ============================================================
+" LIGHTLINE ===================================================================
 " Status line
 set laststatus=2
 
