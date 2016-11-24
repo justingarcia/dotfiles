@@ -2,14 +2,27 @@
 " Author: Justin Garcia
 
 " Preamble --------------------------------------------------------------------
+let g:colors_name="justin"
 hi clear
 set background=dark
 
-" Airline Color Settings ------------------------------------------------------
-let g:colors_name="justin"
-
 " 256-color Terminal ----------------------------------------------------------
 if &t_Co > 255
+
+" Color Definitions -----------------------------------------------------------
+let s:black  = [ '#121212', 233 ]
+let s:grey4  = [ '#1c1c1c', 234 ]
+let s:grey3  = [ '#262626', 235 ]
+let s:grey2  = [ '#767676', 243 ]
+let s:grey1  = [ '#a8a8a8', 248 ]
+let s:white  = [ '#ffffd7', 230 ]
+let s:red    = [ '#d7005f', 161 ]
+let s:orange = [ '#ffaf5f', 215 ]
+let s:yellow = [ '#afaf87', 144 ]
+let s:green  = [ '#afd787', 150 ]
+let s:cyan   = [ '#87ffd7', 122 ]
+let s:blue   = [ '#00afff', 39  ]
+let s:purple = [ '#af5fff', 135 ]
 
 " Normal Group ----------------------------------------------------------------
 hi Normal               ctermfg=230     ctermbg=233
