@@ -47,8 +47,8 @@ set cursorline
 colorscheme justin
 
 " LIGHTLINE ===================================================================
-" Status line
 set laststatus=2
+let g:lightline = { 'colorscheme': 'wombat' }
 
 " NEOCOMPLETE =================================================================
 "let g:neocomplete#enable_at_startup = 1
