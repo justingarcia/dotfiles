@@ -1,6 +1,6 @@
 :noremap j jjjjj
 :noremap k kkkkk
-:colorscheme default
+:colorscheme darkness
 set gui=nomenu,nobookmarks
 set titlestring=""
 
