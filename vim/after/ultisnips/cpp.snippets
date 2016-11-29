@@ -488,29 +488,60 @@ list<${1:/* type */}>::size_type ${2} = ${3:0};
 endsnippet
 
 # MAP =========================================================================
-# map<type> -------------------------------------------------------------------
+# map<type, type> -------------------------------------------------------------
 snippet m "map" w
 map${0}
 endsnippet
 
-snippet mt "map<type>" w
-map<${1}>
+snippet mt "map<type, type>" w
+map<${1}, ${2}>
 endsnippet
 
-snippet mt; "map<type> ...;" b
-map<${1}> ${2};
+snippet mt; "map<type, type> ...;" b
+map<${1}, ${2}> ${3};
 endsnippet
 
-snippet mtz "map<type>::size_type" w
-map<${1}>::size_type${0}
+snippet mt;; "map<type, type> ... = ...;"
+map<${1}, ${2}> ${3} = ${4};
 endsnippet
 
-snippet mtz; "map<type>::size_type ...;"
-map<${1}>::size_type ${2};
+# map<type, type>::size_type --------------------------------------------------
+snippet mtz "map<type, type>::size_type" w
+map<${1}, ${2}>::size_type${0}
 endsnippet
 
-snippet mtz;; "map<type>::size_type ... = ...;"
-map<${1}>::size_type ${2} = ${3:0};
+snippet mtz; "map<type, type>::size_type ...;"
+map<${1}, ${2}>::size_type ${3};
+endsnippet
+
+snippet mtz;; "map<type, type>::size_type ... = ...;"
+map<${1}, ${2}>::size_type ${3} = ${4:0};
+endsnippet
+
+# map<type, type>::iterator ---------------------------------------------------
+snippet mti "map<type, type>::iterator" w
+map<${1}, ${2}>::iterator${0}
+endsnippet
+
+snippet mti; "map<type, type>::iterator"
+map<${1}, ${2}>::iterator ${3};
+endsnippet
+
+snippet mti;; "map<type, type>::iterator ... = ...;"
+map<${1}, ${2}>::iterator ${3} = ${4};
+endsnippet
+
+# map<type, type>::const_iterator ---------------------------------------------
+snippet mtci "map<type, type>::const_iterator" w
+map<${1}, ${2}>::const_iterator${0}
+endsnippet
+
+snippet mtci; "map<type, type>::const_iterator"
+map<${1}, ${2}>::const_iterator ${3};
+endsnippet
+
+snippet mtci;; "map<type, type>::const_iterator ... = ...;"
+map<${1}, ${2}>::const_iterator ${3} = ${4};
 endsnippet
 
 # CONDITIONALS ================================================================
