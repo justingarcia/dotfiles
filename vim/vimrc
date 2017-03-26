@@ -50,22 +50,6 @@ colorscheme justin
 set laststatus=2
 let g:lightline = { 'colorscheme': 'wombat' }
 
-" NEOCOMPLETE =================================================================
-"let g:neocomplete#enable_at_startup = 1
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#enable_refresh_always = 1
-
-" ULTISNIPS ===================================================================
-" Snippet directory
-let g:UltiSnipsSnippetDirectories=['after/ultisnips']
-let g:UltiSnipsExpandTrigger = '<Tab>'
-" In Xresources: <S-Space> = <F12>
-let g:UltiSnipsJumpForwardTrigger = '<F12>'
-inoremap <F12> <nop>
-" In Xresources: <C-Space> = <F12>
-let g:UltiSnipsJumpBackwardTrigger = '<F11>'
-inoremap <F11> <nop>
-
 " MACROS ======================================================================
 " Leader Key ------------------------------------------------------------------
 map <Space> <Leader>

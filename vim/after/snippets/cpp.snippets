@@ -636,3 +636,16 @@ endsnippet
 snippet h><z;; "std::streamsize ... = ...;" b
 std::streamsize ${1} = ${2};
 endsnippet
+
+# TEMPLATE ====================================================================
+snippet t "template" w
+template
+endsnippet
+
+snippet tfun "template function" b
+template <class ${1:T}>
+${2:void} ${3:function_name}(${4})
+{
+    ${5}
+}
+endsnippet
