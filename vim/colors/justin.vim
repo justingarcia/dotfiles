@@ -25,37 +25,37 @@ let s:blue   = [ '#00afff', 39  ]
 let s:purple = [ '#af5fff', 135 ]
 
 " Normal Group ----------------------------------------------------------------
-hi Normal               ctermfg=230     ctermbg=233
+exe 'hi Normal          ctermfg=' .s:white[1]    .' ctermbg=' .s:black[1]
 
 " Comment Group ---------------------------------------------------------------
-hi Comment              ctermfg=243
+exe 'hi Comment         ctermfg=' .s:grey2[1]
 
 " Statement Group -------------------------------------------------------------
-hi Statement            ctermfg=39                      cterm=bold
-hi Function             ctermfg=122
-hi Operator             ctermfg=230
+exe 'hi Statement       ctermfg=' .s:blue[1]     .' cterm=bold'
+exe 'hi Function        ctermfg=' .s:cyan[1]
+exe 'hi Operator        ctermfg=' .s:white[1]
 "hi Conditional
 "hi Repeat
 
 " Constant Group --------------------------------------------------------------
-hi Constant             ctermfg=135
-hi String               ctermfg=150
+exe 'hi Constant        ctermfg=' .s:purple[1]
+exe 'hi String          ctermfg=' .s:green[1]
 "hi Boolean
 "hi Character
 "hi Float
 "hi Number
 
 " Type Group ------------------------------------------------------------------
-hi Type                 ctermfg=161                     cterm=bold
+exe 'hi Type            ctermfg=' .s:red[1]     .' cterm=bold'
 "hi StorageClass
 "hi Structure
 "hi Typedef
 
 " Identifier Group ------------------------------------------------------------
-hi Identifier           ctermfg=230                     cterm=bold
+exe 'hi Identifier      ctermfg=' .s:white[1]   .' cterm=bold'
 
 " PreProc Group ---------------------------------------------------------------
-hi PreProc              ctermfg=215                     cterm=bold
+exe 'hi PreProc         ctermfg=' .s:orange[1]  .' cterm=bold'
 "hi Include
 "hi Macro
 "hi PreCondit
