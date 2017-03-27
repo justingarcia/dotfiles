@@ -17,9 +17,8 @@ xft.rgba:                       rgb
 xft.hinting:                    true
 xft.hintstyle:                  hintfull
 
-URxvt.font:                     xft:InconsolataGo:pixelsize=12:Regular
-URxvt.boldFont:                 xft:InconsolataGo:pixelsize=12:Bold
-URxvt.italicFont:               xft:InconsolataGo:pixelsize=12:Italic
+URxvt.font:                     xft:Inconsolata for Powerline:Medium:pixelsize=12
+xterm*faceName:                 xft:Inconsolata for Powerline:Medium:pixelsize=12
 URxvt.letterSpace:              -1
 
 ! Background Transparency
