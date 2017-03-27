@@ -4,3 +4,6 @@
 [submodule "vim/pack/plugins/start/auto-pairs"]
 	path = vim/pack/plugins/start/auto-pairs
 	url = https://github.com/jiangmiao/auto-pairs.git
+[submodule "tmux/plugins/tmux-resurrect"]
+	path = tmux/plugins/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect
