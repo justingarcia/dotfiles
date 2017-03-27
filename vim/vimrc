@@ -50,9 +50,10 @@ set cursorline
 " Color scheme
 colorscheme justin
 
-" LIGHTLINE ===================================================================
+" AIRLINE =====================================================================
 set laststatus=2
-let g:lightline = { 'colorscheme': 'wombat' }
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " MACROS ======================================================================
 " Leader Key ------------------------------------------------------------------
