@@ -24,11 +24,16 @@ let s:cyan   = [ '#87ffd7', 122 ]
 let s:blue   = [ '#00afff', 39  ]
 let s:purple = [ '#af5fff', 135 ]
 
+let s:pureRed   = [ '#ff0000', 196 ]
+let s:pureGreen = [ '#00ff00', 46  ]
+let s:pureBlue  = [ '#0000ff', 21  ]
+
 " Normal Group ----------------------------------------------------------------
 exe 'hi Normal          ctermfg=' .s:white[1]    .' ctermbg=' .s:black[1]
 
 " Comment Group ---------------------------------------------------------------
 exe 'hi Comment         ctermfg=' .s:grey2[1]
+exe 'hi Todo            ctermfg=' .s:pureRed[1]  .' ctermbg=' .s:black[1] .' cterm=bold'
 
 " Statement Group -------------------------------------------------------------
 exe 'hi Statement       ctermfg=' .s:blue[1]     .' cterm=bold'
@@ -136,7 +141,6 @@ end
 "
 "   hi Tag             ctermfg=161
 "   hi Title           ctermfg=166
-"   hi Todo            ctermfg=231 ctermbg=232   cterm=bold
 "
 "   hi Underlined      ctermfg=244               cterm=underline
 "   hi InheritUnderlined      ctermfg=118               cterm=underline
