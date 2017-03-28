@@ -30,6 +30,7 @@ let s:pureBlue  = [ '#0000ff', 21  ]
 
 " Normal Group ----------------------------------------------------------------
 exe 'hi Normal          ctermfg=' .s:white[1]    .' ctermbg=' .s:black[1]
+"exe Noise
 
 " Comment Group ---------------------------------------------------------------
 exe 'hi Comment         ctermfg=' .s:grey2[1]
@@ -38,7 +39,7 @@ exe 'hi Todo            ctermfg=' .s:pureRed[1]  .' ctermbg=' .s:black[1] .' cte
 " Statement Group -------------------------------------------------------------
 exe 'hi Statement       ctermfg=' .s:blue[1]     .' cterm=bold'
 exe 'hi Function        ctermfg=' .s:cyan[1]
-exe 'hi Operator        ctermfg=' .s:white[1]
+exe 'hi Operator        ctermfg=' .s:cyan[1]
 "hi Conditional
 "hi Repeat
 
@@ -47,7 +48,7 @@ exe 'hi Constant        ctermfg=' .s:orange[1]
 exe 'hi String          ctermfg=' .s:green[1]
 exe 'hi Number          ctermfg=' .s:purple[1]
 exe 'hi Boolean         ctermfg=' .s:purple[1]
-exe 'hi Characte        ctermfg=' .s:purple[1]
+exe 'hi Character       ctermfg=' .s:purple[1]
 exe 'hi Float           ctermfg=' .s:purple[1]
 
 " Type Group ------------------------------------------------------------------
@@ -66,8 +67,8 @@ exe 'hi PreProc         ctermfg=' .s:orange[1]  .' cterm=bold'
 "hi PreCondit
 
 " Special Group ---------------------------------------------------------------
-hi Special              ctermfg=150
-hi Delimiter            ctermfg=230
+exe 'hi Special         ctermfg=' .s:orange[1]
+exe 'hi Delimiter       ctermfg=' .s:white[1]
 "hi SpecialChar
 
 " Non Text Areas --------------------------------------------------------------
