@@ -1,4 +1,6 @@
 " GENERAL SETTINGS ============================================================
+" Encoding
+set encoding=utf-8
 " View line number
 set number
 
