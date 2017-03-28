@@ -43,12 +43,12 @@ exe 'hi Operator        ctermfg=' .s:white[1]
 "hi Repeat
 
 " Constant Group --------------------------------------------------------------
-exe 'hi Constant        ctermfg=' .s:purple[1]
+exe 'hi Constant        ctermfg=' .s:orange[1]
 exe 'hi String          ctermfg=' .s:green[1]
-"hi Boolean
-"hi Character
-"hi Float
-"hi Number
+exe 'hi Number          ctermfg=' .s:purple[1]
+exe 'hi Boolean         ctermfg=' .s:purple[1]
+exe 'hi Characte        ctermfg=' .s:purple[1]
+exe 'hi Float           ctermfg=' .s:purple[1]
 
 " Type Group ------------------------------------------------------------------
 exe 'hi Type            ctermfg=' .s:red[1]     .' cterm=bold'
