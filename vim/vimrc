@@ -6,7 +6,7 @@ set number
 
 " Key delays
 set timeoutlen=250
-set ttimeoutlen=25
+set ttimeoutlen=0
 
 " Tab format options (4 space tab)
 set shiftwidth=4
