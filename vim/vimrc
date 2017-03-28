@@ -81,6 +81,11 @@ let g:airline_section_z = '%l:%c'
 map <Space> <Leader>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
+nnoremap <Leader>n :enew<CR>
+nnoremap <Leader>x :bd<CR>
+nnoremap <Leader>h :bprevious<CR>
+nnoremap <Leader>l :bnext<CR>
+nnoremap <Leader>s :ls<CR>
 
 " Yanking Line Consistency ----------------------------------------------------
 nnoremap Y y$
