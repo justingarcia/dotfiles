@@ -1,54 +1,41 @@
 " GENERAL SETTINGS ============================================================
-" Encoding
-set encoding=utf-8
-" View line number
-set number
+set encoding=utf-8              " Encoding
+set number                      " Show line numbers
+set textwidth=79                " Max line length at col 79
 
-" Key delays
+" Key Delays ------------------------------------------------------------------
 set timeoutlen=250
 set ttimeoutlen=0
 
-" Tab format options (4 space tab)
+" Formatting ------------------------------------------------------------------
+filetype plugin indent on       " Filetype dependent indenting
+set formatoptions=ro            "Auto insert comment leader
+
+" Tab Format ------------------------------------------------------------------
 set shiftwidth=4
 set expandtab
 set smarttab
 
-" Filetype dependent indenting
-filetype plugin indent on
+" Scrolling -------------------------------------------------------------------
+set scrolloff=999               " Lock cursor to middle of screen
+set ttyfast                     " Fast scrolling
 
-" Maximum line length at 79
-set textwidth=79
-
-" Auto insert comment leader
-set formatoptions=ro
-
-" Lock cursor to middle of screen
-set scrolloff=999
-
-" Performance related
+" Perfomance ------------------------------------------------------------------
 set synmaxcol=127
 set lazyredraw
 let loaded_matchparen=1
-
-" For fast scrolling
-set ttyfast
-
 " Disable folding
 set nofoldenable
 
 " COLOR SETTINGS ==============================================================
 " No | characters on vertical split -- space after \
 set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:-
-
 " Color delimitter at column 81 (allows for 1 column margin)
 let &colorcolumn=join(range(81,999),",")
-
 " Enable code syntax highlighting
 syntax enable
-
 " Enable cursor line highlighting
 set cursorline
-
 " Color scheme
 colorscheme justin
 
@@ -77,7 +64,11 @@ let g:airline_mode_map = {
 let g:airline_section_z = '%l:%c'
 
 " MACROS ======================================================================
-" Leader Key ------------------------------------------------------------------
+" General ---------------------------------------------------------------------
+" For yanking line consistency
+nnoremap Y y$
+
+" Leader Macros ---------------------------------------------------------------
 map <Space> <Leader>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
@@ -86,9 +77,6 @@ nnoremap <Leader>x :bd<CR>
 nnoremap <Leader>h :bprevious<CR>
 nnoremap <Leader>l :bnext<CR>
 nnoremap <Leader>s :ls<CR>
-
-" Yanking Line Consistency ----------------------------------------------------
-nnoremap Y y$
 
 " Toggle Relative Numbering ---------------------------------------------------
 function! NumberToggle()
@@ -108,6 +96,6 @@ function! FillLine(char)
     exe "normal $1lv79|r" . a:char
     set ve=
 endfunction
-inoremap ---<CR> <Esc>:call FillLine('-')<CR>o
-inoremap ___<CR> <Esc>:call FillLine('_')<CR>o
-inoremap ===<CR> <Esc>:call FillLine('=')<CR>o
+inoremap --<CR> <Esc>:call FillLine('-')<CR>o
+inoremap __<CR> <Esc>:call FillLine('_')<CR>o
+inoremap ==<CR> <Esc>:call FillLine('=')<CR>o

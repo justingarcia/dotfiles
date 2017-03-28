@@ -1,6 +1,6 @@
 # General ---------------------------------------------------------------------
-# Sanity check for 'rm *'
-setopt RM_STAR_WAIT
+setopt RM_STAR_WAIT     # Sanity check for 'rm *'
+KEYTIMEOUT=1            # Time to wait for multi-char seq (0.001 seconds)
 
 # Colors ----------------------------------------------------------------------
 autoload -U colors && colors
