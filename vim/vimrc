@@ -46,7 +46,7 @@ colorscheme justin
 " PLUGINS =====================================================================
 " Airline ---------------------------------------------------------------------
 set laststatus=2
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline#extensions#tabline#enabled = 1
@@ -69,6 +69,8 @@ let g:airline_mode_map = {
   \ }
 let g:airline_section_z = '%l:%c'
 
+autocmd BufDelete * call airline#extensions#tabline#buflist#invalidate()
+
 " Nerdtree --------------------------------------------------------------------
 let NERDTreeMinimalUI=1
 autocmd vimenter * NERDTree | wincmd p
@@ -86,11 +88,31 @@ map <Space> <Leader>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>n :enew<CR>
-nnoremap <Leader>x :bd<CR>
+nnoremap <Leader>x :bp<CR>:bd #<CR>
 nnoremap <Leader>h :bprevious<CR>
 nnoremap <Leader>l :bnext<CR>
 nnoremap <Leader>b :ls<CR>
 nnoremap <Leader>p :CtrlP<CR>
+nnoremap <Leader>t :call NumberToggle()<CR>
+
+" Insert Macros ---------------------------------------------------------------
+inoremap --<CR> <Esc>:call FillLine('-')<CR>o
+inoremap __<CR> <Esc>:call FillLine('_')<CR>o
+inoremap ==<CR> <Esc>:call FillLine('=')<CR>o
+
+" FUNCTIONS ===================================================================
+" Number of Active Buffers ----------------------------------------------------
+function! NrBufs()
+    let i = bufnr('$')
+    let j = 0
+    while i >= 1
+        if buflisted(i)
+            let j += 1
+        endif
+        let i -= 1
+    endwhile
+    return j
+endfunction
 
 " Toggle Relative Numbering ---------------------------------------------------
 function! NumberToggle()
@@ -102,7 +124,6 @@ function! NumberToggle()
         set relativenumber
     endif
 endfunction
-nnoremap <Leader>t :call NumberToggle()<CR>
 
 " Horizontal Line -------------------------------------------------------------
 function! FillLine(char)
@@ -110,6 +131,3 @@ function! FillLine(char)
     exe "normal $1lv79|r" . a:char
     set ve=
 endfunction
-inoremap --<CR> <Esc>:call FillLine('-')<CR>o
-inoremap __<CR> <Esc>:call FillLine('_')<CR>o
-inoremap ==<CR> <Esc>:call FillLine('=')<CR>o
