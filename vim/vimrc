@@ -21,7 +21,8 @@ set scrolloff=999               " Lock cursor to middle of screen
 set ttyfast                     " Fast scrolling
 
 " Perfomance ------------------------------------------------------------------
-set synmaxcol=127
+set synmaxcol=128
+syntax sync minlines=256
 set lazyredraw
 let loaded_matchparen=1
 " Disable folding
@@ -77,6 +78,7 @@ nnoremap <Leader>x :bd<CR>
 nnoremap <Leader>h :bprevious<CR>
 nnoremap <Leader>l :bnext<CR>
 nnoremap <Leader>s :ls<CR>
+nnoremap <Leader>p :CtrlP<CR>
 
 " Toggle Relative Numbering ---------------------------------------------------
 function! NumberToggle()
