@@ -2,6 +2,7 @@
 set encoding=utf-8              " Encoding
 set number                      " Show line numbers
 set textwidth=79                " Max line length at col 79
+set directory^=$HOME/.vimswp//  " Swapfile directory
 
 " Key Delays ------------------------------------------------------------------
 set timeoutlen=250
@@ -24,7 +25,6 @@ set ttyfast                     " Fast scrolling
 set synmaxcol=128
 syntax sync minlines=256
 set lazyredraw
-let loaded_matchparen=1
 " Disable folding
 set nofoldenable
 
@@ -37,15 +37,20 @@ let &colorcolumn=join(range(81,999),",")
 syntax enable
 " Enable cursor line highlighting
 set cursorline
+" Highlight matching parenthesis
+let loaded_matchparen=1
+set showmatch
 " Color scheme
 colorscheme justin
 
-" AIRLINE =====================================================================
+" PLUGINS =====================================================================
+" Airline ---------------------------------------------------------------------
 set laststatus=2
 let g:airline_powerline_fonts = 0
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline_theme = 'afterglow'
@@ -64,6 +69,13 @@ let g:airline_mode_map = {
   \ }
 let g:airline_section_z = '%l:%c'
 
+" Nerdtree --------------------------------------------------------------------
+let NERDTreeMinimalUI=1
+autocmd vimenter * NERDTree | wincmd p
+autocmd bufenter *
+    \ if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
+    \ | q | endif
+
 " MACROS ======================================================================
 " General ---------------------------------------------------------------------
 " For yanking line consistency
@@ -77,7 +89,7 @@ nnoremap <Leader>n :enew<CR>
 nnoremap <Leader>x :bd<CR>
 nnoremap <Leader>h :bprevious<CR>
 nnoremap <Leader>l :bnext<CR>
-nnoremap <Leader>s :ls<CR>
+nnoremap <Leader>b :ls<CR>
 nnoremap <Leader>p :CtrlP<CR>
 
 " Toggle Relative Numbering ---------------------------------------------------

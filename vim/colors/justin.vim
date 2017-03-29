@@ -30,6 +30,7 @@ let s:pureBlue  = [ '#0000ff', 21  ]
 
 " Normal Group ----------------------------------------------------------------
 exe 'hi Normal          ctermfg=' .s:white[1]    .' ctermbg=' .s:black[1]
+exe 'hi ShowMatches      ctermfg=' .s:white[1]    .' ctermbg=' .s:blue[1] . ' cterm=none'
 "exe Noise
 
 " Comment Group ---------------------------------------------------------------
