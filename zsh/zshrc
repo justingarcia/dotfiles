@@ -13,6 +13,15 @@ export EDITOR="vim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 
+# Window Title ----------------------------------------------------------------
+export DISABLE_AUTO_TITLE="true"
+echo -ne "\033];$PWD\007"
+case $TERM in
+    (*xterm* | rxvt)
+        chpwd () {print -Pn "\e]0;$PWD\a"}
+    ;;
+esac
+
 # Prompt ----------------------------------------------------------------------
 if [[ $UID -eq 0 ]]; then
     local user_host="%{$terminfo[bold]$fg[red]%}%n@%m%{$reset_color%}"
@@ -47,7 +56,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-export NVM_DIR="/home/justin/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# NVM -------------------------------------------------------------------------
+#export NVM_DIR="/home/justin/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
+# Blender ---------------------------------------------------------------------
 export OCIO="/home/justin/filmic-blender/config.ocio"

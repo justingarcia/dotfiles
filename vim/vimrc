@@ -1,106 +1,136 @@
-" GENERAL SETTINGS ============================================================
+" General {{{
 set encoding=utf-8              " Encoding
-set number                      " Show line numbers
-set textwidth=79                " Max line length at col 79
-set directory^=$HOME/.vimswp//  " Swapfile directory
-
-" Key Delays ------------------------------------------------------------------
+let s:codewidth=80              " Maximum line length (+1)
 set timeoutlen=250
 set ttimeoutlen=0
-
-" Formatting ------------------------------------------------------------------
+set modeline                    " Special comments for file-specific settings
+" }}}
+" Colors {{{
+colorscheme justin              " vim/colors/justin.vim
+syntax enable                   " Enable syntax processing
+" Background color change at codewidth+1
+let &colorcolumn=join(range(s:codewidth+1, 999), ",")
+" }}}
+" Spaces & Tabs {{{
+set softtabstop=4               " Number of spaces in tab when editing
+set expandtab                   " Tabs are spaces
+" }}}
+" UI Layout {{{
+set number                      " Show line numbers
 filetype plugin indent on       " Filetype dependent indenting
-set formatoptions=ro            "Auto insert comment leader
-
-" Tab Format ------------------------------------------------------------------
-set shiftwidth=4
-set expandtab
-set smarttab
-
-" Scrolling -------------------------------------------------------------------
-set scrolloff=999               " Lock cursor to middle of screen
-set ttyfast                     " Fast scrolling
-
-" Perfomance ------------------------------------------------------------------
-set synmaxcol=128
-syntax sync minlines=256
+set formatoptions=ro            " Auto insert comment leader
+let &textwidth=(s:codewidth-1)  " Wrap lines above codewidth
+set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:-    " Fill Characters
+"set cursorline                  " Enable cursor line highlighting
+"set scrolloff=999               " Lock cursor to middle of screen
+" }}}
+" Performance {{{
 set lazyredraw
-" Disable folding
-set nofoldenable
-
-" COLOR SETTINGS ==============================================================
-" No | characters on vertical split -- space after \
-set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:-
-" Color delimitter at column 81 (allows for 1 column margin)
-let &colorcolumn=join(range(81,999),",")
-" Enable code syntax highlighting
-syntax enable
-" Enable cursor line highlighting
-set cursorline
-" Highlight matching parenthesis
-let loaded_matchparen=1
-set showmatch
-" Color scheme
-colorscheme justin
-
-" PLUGINS =====================================================================
-" Airline ---------------------------------------------------------------------
-set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#right_sep = ''
-let g:airline_theme = 'afterglow'
-let g:airline_mode_map = {
-  \ '__' : '-',
-  \ 'n'  : 'N',
-  \ 'i'  : 'I',
-  \ 'R'  : 'R',
-  \ 'c'  : 'C',
-  \ 'v'  : 'V',
-  \ 'V'  : 'V',
-  \ '' : 'V',
-  \ 's'  : 'S',
-  \ 'S'  : 'S',
-  \ '' : 'S',
-  \ }
-let g:airline_section_z = '%l:%c'
-
-autocmd BufDelete * call airline#extensions#tabline#buflist#invalidate()
-
-" Nerdtree --------------------------------------------------------------------
-let NERDTreeMinimalUI=1
-autocmd vimenter * NERDTree | wincmd p
-autocmd bufenter *
-    \ if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
-    \ | q | endif
-
-" MACROS ======================================================================
+let synmaxcol=(s:codewidth*2)
+syntax sync minlines=128
+set ttyfast                     " Fast scrolling
+set regexpengine=1              " Use older, faster regex engine
+let loaded_matchparen = 1       " Disable parenthesis highlighting
+" }}}
+" Folding {{{
+set foldenable                  " Enable folding
+set foldlevelstart=10           " Open most folds by default
+set foldnestmax=10              " 10 nested fold max
+set foldmethod=indent           " Fold based on indent level
+" Custom fold text function
+function! FoldText()
+    let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+    let lines_count = v:foldend - v:foldstart + 1
+    let lines_count_text = ' (' . printf("%s", lines_count . ' lines') . ')'
+    let foldchar = matchstr(&fillchars, 'fold:\zs.')
+    let foldtextstart = strpart(repeat(' ', (v:foldlevel-1)*2) . '+' . line, 0, (winwidth(0)*2)/3)
+    let foldtextend = lines_count_text
+    let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+    return foldtextstart . repeat(foldchar, s:codewidth-1-foldtextlength) . foldtextend . repeat(' ', winwidth(0)-s:codewidth-1)
+endfunction
+set foldtext=FoldText()
+" }}}
+" Macros {{{
 " General ---------------------------------------------------------------------
 " For yanking line consistency
 nnoremap Y y$
 
-" Leader Macros ---------------------------------------------------------------
+" Insert Macros ---------------------------------------------------------------
+"inoremap --<CR> <Esc>:call FillLine('-')<CR>o
+"inoremap __<CR> <Esc>:call FillLine('_')<CR>o
+"inoremap ==<CR> <Esc>:call FillLine('=')<CR>o
+function! FillLine(char)
+    set ve=all
+    exe "normal $1lv79|r" . a:char
+    set ve=
+endfunction
+" }}}
+" Leader Key {{{
 map <Space> <Leader>
+" File
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>n :enew<CR>
+" Folding
+nnoremap <Leader>a za
+" Navigation
+nnoremap <Leader>z zz
+nnoremap <Leader>h Hzz
+nnoremap <Leader>l Lzz
+nnoremap <Leader>m Mzz
+" Buffers
 nnoremap <Leader>x :bp<CR>:bd #<CR>
-nnoremap <Leader>h :bprevious<CR>
-nnoremap <Leader>l :bnext<CR>
+"nnoremap <Leader>h :bprevious<CR>
+"nnoremap <Leader>l :bnext<CR>
 nnoremap <Leader>b :ls<CR>
+" Addt
 nnoremap <Leader>p :CtrlP<CR>
 nnoremap <Leader>t :call NumberToggle()<CR>
+" }}}
+" Status Line {{{
+let g:currentmode = {
+    \ 'n'  : 'NORMAL',
+    \ 'no' : 'N-OPERATOR',
+    \ 'i'  : 'INSERT',
+    \ 'R'  : 'REPLACE',
+    \ 'Rv' : 'V-REPLACE',
+    \ 'v'  : 'VISUAL',
+    \ 'V'  : 'V-LINE',
+    \ '^V' : 'V-BLOCK',
+    \ 's'  : 'SELECT',
+    \ 'S'  : 'S-LINE',
+    \ '^S' : 'S-BLOCK',
+    \ 'c'  : 'COMMAND',
+    \ 'cv' : 'VIM-EX',
+    \ 'ce' : 'EX',
+    \ 'r'  : 'PROMPT',
+    \ 'rm' : 'MORE',
+    \ 'r?' : 'CONFIRM',
+    \ '!'  : 'SHELL',
+    \ 't'  : 'TERMINAL'
+    \}
 
-" Insert Macros ---------------------------------------------------------------
-inoremap --<CR> <Esc>:call FillLine('-')<CR>o
-inoremap __<CR> <Esc>:call FillLine('_')<CR>o
-inoremap ==<CR> <Esc>:call FillLine('=')<CR>o
-
-" FUNCTIONS ===================================================================
+set laststatus=2
+set statusline=
+set statusline+=%{g:currentmode[mode()]}    "Current mode
+set statusline+=\ %m                        "Modified?
+set statusline+=\ %<%F\                     "File+path
+set statusline+=%=%l:%c
+" }}}
+" Misc Plugins {{{
+" PLUGINS =====================================================================
+" Nerdtree --------------------------------------------------------------------
+"let NERDTreeMinimalUI=1
+"autocmd vimenter * NERDTree | wincmd p
+"autocmd bufenter *
+"    \ if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
+"    \ | q | endif
+"
+" }}}
+" Backup {{{
+set directory^=$HOME/.vimswp//  " Swapfile directory
+" }}}
+" Custom Functions {{{
 " Number of Active Buffers ----------------------------------------------------
 function! NrBufs()
     let i = bufnr('$')
@@ -124,10 +154,7 @@ function! NumberToggle()
         set relativenumber
     endif
 endfunction
-
-" Horizontal Line -------------------------------------------------------------
-function! FillLine(char)
-    set ve=all
-    exe "normal $1lv79|r" . a:char
-    set ve=
-endfunction
+" }}}
+" Modeline {{{
+" vim:foldmethod=marker:foldlevel=0
+" }}}

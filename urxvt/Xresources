@@ -8,8 +8,10 @@ URxvt.secondaryScroll:          true
 URxvt.cursorBlink:              true
 
 ! Keybindings
-URxvt.keysym.Shift-space:       \033[24~
-URxvt.keysym.C-space:           \033[23~
+! Map <C-Return> to <ESC>
+URxvt.keysym.C-Return:          \033
+!URxvt.keysym.Shift-space:       \033[24~
+!URxvt.keysym.C-space:           \033[23~
 
 ! Fonts
 xft.dpi:                        96
@@ -19,7 +21,7 @@ xft.hinting:                    true
 xft.hintstyle:                  hintfull
 
 URxvt.font:                     xft:InconsolataGo Nerd Font:Regular:pixelsize=12
-xterm*faceName:                 xft:InconsolataGo Nerd Font:Regular:pixelsize=12
+URxvt*faceName:                 xft:InconsolataGo Nerd Font:Regular:pixelsize=12
 URxvt.letterSpace:              -1
 
 ! Background Transparency

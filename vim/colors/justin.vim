@@ -77,8 +77,7 @@ hi ColorColumn                          ctermbg=234
 hi NonText              ctermfg=248     ctermbg=234
 hi LineNr               ctermfg=248     ctermbg=233
 hi VertSplit            ctermfg=0       ctermbg=232
-hi StatusLine           ctermfg=0       ctermbg=67      cterm=none
-hi StatusLineNC         ctermfg=0       ctermbg=67      cterm=bold
+exe 'hi Folded          ctermfg=' .s:orange[1] .' ctermbg=' .s:black[1]
 
 " Cursor Highlighting ---------------------------------------------------------
 hi CursorLine                           ctermbg=235     cterm=none
@@ -95,13 +94,28 @@ hi Directory            ctermfg=215
 hi Pmenu                ctermfg=39      ctermbg=235
 hi PmenuSel             ctermfg=39      ctermbg=236
 
+" Status Line
+exe 'hi StatusLine      ctermfg=' .s:grey4[1]  .' ctermbg=' .s:white[1]
+"hi StatusLineNC         ctermfg=0       ctermbg=67      cterm=bold
+
+exe 'hi User1 ctermfg=' .s:white[1]    .' ctermbg=' .s:grey4[1]
+exe 'hi User2 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
+exe 'hi User3 ctermfg=' .s:red[1]    .' ctermbg=' .s:grey4[1]
+exe 'hi User4 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
+exe 'hi User5 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
+exe 'hi User6 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
+exe 'hi User7 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
+exe 'hi User8 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
+exe 'hi User9 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
+exe 'hi User0 ctermfg=' .s:pureRed[1]    .' ctermbg=' .s:grey3[1]
+
 end
 
 "   hi Cursor          ctermfg=16  ctermbg=253
 "   hi Debug           ctermfg=225               cterm=bold
 "   hi Builtin         ctermfg=135               cterm=bold
 "
-"   hi EasyMotionTarget ctermfg=11
+"a   hi EasyMotionTarget ctermfg=11
 "   hi EasyMotionShade  ctermfg=8
 "
 "   hi DiffAdd                     ctermbg=24
