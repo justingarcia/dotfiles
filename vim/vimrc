@@ -126,6 +126,8 @@ set statusline+=%=%l:%c
 "    \ if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
 "    \ | q | endif
 "
+" auto-pairs-gentle
+let g:AutoPairsUseInsertedCount = 1
 " }}}
 " Backup {{{
 set directory^=$HOME/.vimswp//  " Swapfile directory
