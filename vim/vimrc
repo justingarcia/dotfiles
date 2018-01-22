@@ -112,10 +112,11 @@ let g:currentmode = {
 
 set laststatus=2
 set statusline=
-set statusline+=%{g:currentmode[mode()]}    "Current mode
-set statusline+=\ %m                        "Modified?
-set statusline+=\ %<%F\                     "File+path
-set statusline+=%=%l:%c
+set statusline+=%2*\ %{g:currentmode[mode()]}\      "Current mode
+set statusline+=%1*\ %m                             "Modified?
+set statusline+=\ %<%F\                             "File+path
+set statusline+=%=%{&ff}\ 
+set statusline+=%2*\ %03l:%03c\ 
 " }}}
 " Misc Plugins {{{
 " PLUGINS =====================================================================
