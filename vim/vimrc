@@ -13,6 +13,7 @@ let &colorcolumn=join(range(s:codewidth+1, 999), ",")
 " }}}
 " Spaces & Tabs {{{
 set softtabstop=4               " Number of spaces in tab when editing
+set shiftwidth=4                " Number of spaces for reindent operations
 set expandtab                   " Tabs are spaces
 " }}}
 " UI Layout {{{
