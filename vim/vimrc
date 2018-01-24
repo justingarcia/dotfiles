@@ -11,19 +11,26 @@ syntax enable                   " Enable syntax processing
 " Background color change at codewidth+1
 let &colorcolumn=join(range(s:codewidth+1, 999), ",")
 " }}}
-" Spaces & Tabs {{{
-set softtabstop=4               " Number of spaces in tab when editing
-set shiftwidth=4                " Number of spaces for reindent operations
-set expandtab                   " Tabs are spaces
-" }}}
 " UI Layout {{{
 set number                      " Show line numbers
 filetype plugin indent on       " Filetype dependent indenting
-set formatoptions=ro            " Auto insert comment leader
-let &textwidth=(s:codewidth-1)  " Wrap lines above codewidth
+set formatoptions=              " Clear default format options
 set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:-    " Fill Characters
+"set formatoptions+=ro           " Auto insert comment leader
 "set cursorline                  " Enable cursor line highlighting
 "set scrolloff=999               " Lock cursor to middle of screen
+" }}}
+" Spaces & Tabs {{{
+set softtabstop=4               " Number of spaces in tab when editing
+set shiftwidth=4                " Number of spaces for >>> operations
+set expandtab                   " Tabs are spaces
+" }}}
+" Text Wrapping {{{
+let &textwidth=(s:codewidth-1)  " Set textwidth to codewidth variable
+set formatoptions+=t            " Auto hard wrap text using textwidth
+set formatoptions+=l            " Don't autowrap existing long lines
+set formatoptions+=q            " Allow reformating with gq
+set wrapmargin=0                " Don't wrap based on terminal size
 " }}}
 " Performance {{{
 set lazyredraw
@@ -53,8 +60,16 @@ set foldtext=FoldText()
 " }}}
 " Macros {{{
 " General ---------------------------------------------------------------------
+" Move vertically by visual line
+nnoremap j gj
+nnoremap k gk
 " For yanking line consistency
 nnoremap Y y$
+" Remap <CR> to <Esc> in insert, visual, and select modes
+inoremap <CR> <Esc>
+vnoremap <CR> <Esc>
+" <S-CR> is mapped to <F11> in Xresources
+inoremap <F11> <CR>
 
 " Insert Macros ---------------------------------------------------------------
 "inoremap --<CR> <Esc>:call FillLine('-')<CR>o
@@ -79,6 +94,12 @@ nnoremap <Leader>z zz
 nnoremap <Leader>h Hzz
 nnoremap <Leader>l Lzz
 nnoremap <Leader>m Mzz
+" Editing
+nnoremap <Leader>c cc
+nnoremap <Leader>d dd
+nnoremap <Leader>y yy
+" Text wrap formatting
+nnoremap <Leader>f vipgq
 " Buffers
 nnoremap <Leader>x :bp<CR>:bd #<CR>
 "nnoremap <Leader>h :bprevious<CR>
@@ -89,7 +110,8 @@ nnoremap <Leader>p :CtrlP<CR>
 nnoremap <Leader>t :call NumberToggle()<CR>
 " }}}
 " Status Line {{{
-let g:currentmode = {
+set laststatus=2                "2-line status bar
+let g:modename = {
     \ 'n'  : 'NORMAL',
     \ 'no' : 'N-OPERATOR',
     \ 'i'  : 'INSERT',
@@ -110,14 +132,30 @@ let g:currentmode = {
     \ '!'  : 'SHELL',
     \ 't'  : 'TERMINAL'
     \}
+let g:modecolor = {
+    \ 'n'  : '2',
+    \ 'i'  : '3',
+    \ 'v'  : '4'
+    \}
+function! SetStatusLine(mode)
+    set statusline=
+    "Set mode color
+    exe "set statusline+=%".g:modecolor[a:mode]."*"     
+    set statusline+=\                                   "Insert 1 space
+    "Print mode name
+    exe "set statusline+=".g:modename[a:mode]
+    set statusline+=\ %1*\ %m                           "Modified?
+    set statusline+=\ %<%F\                             "File+path
+    set statusline+=%=%{strlen(&ft)?&ft:'none'}\        "Filetype
+    set statusline+=%{''.(&fenc!=''?&fenc:&enc).''}\    "Encoding
+    "Set mode color
+    exe "set statusline+=%".g:modecolor[a:mode]."*"
+    set statusline+=\ %03l:%03c\                        "Row and col
+endfunction
 
-set laststatus=2
-set statusline=
-set statusline+=%2*\ %{g:currentmode[mode()]}\      "Current mode
-set statusline+=%1*\ %m                             "Modified?
-set statusline+=\ %<%F\                             "File+path
-set statusline+=%=%{&ff}\ 
-set statusline+=%2*\ %03l:%03c\ 
+autocmd InsertEnter * call SetStatusLine(v:insertmode)
+autocmd InsertLeave * call SetStatusLine(mode())
+autocmd BufEnter    * call SetStatusLine(mode())
 " }}}
 " Misc Plugins {{{
 " PLUGINS =====================================================================
@@ -130,6 +168,14 @@ set statusline+=%2*\ %03l:%03c\
 "
 " auto-pairs-gentle
 let g:AutoPairsUseInsertedCount = 1
+" better key bindings for UltiSnipsExpandTrigger
+" <C-CR> is mapped to <F12> in Xresources
+let g:UltiSnipsExpandTrigger = "<Tab>"
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
+" Snippets directory
+let g:UltiSnipsSnippetsDir = $HOME."/.vim/after/ultisnips"
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/after/ultisnips']
 " }}}
 " Backup {{{
 set directory^=$HOME/.vimswp//  " Swapfile directory

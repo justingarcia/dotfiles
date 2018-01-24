@@ -10,3 +10,9 @@
 [submodule "vim/pack/plugins/start/auto-pairs-gentle"]
 	path = vim/pack/plugins/start/auto-pairs-gentle
 	url = https://github.com/vim-scripts/auto-pairs-gentle.git
+[submodule "vim/pack/plugins/start/ultisnips"]
+	path = vim/pack/plugins/start/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "vim/pack/plugins/start/vim-surround"]
+	path = vim/pack/plugins/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git

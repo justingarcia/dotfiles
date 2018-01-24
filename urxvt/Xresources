@@ -9,9 +9,10 @@ URxvt.cursorBlink:              true
 
 ! Keybindings
 ! Map <C-Return> to <ESC>
-URxvt.keysym.C-Return:          \033
-!URxvt.keysym.Shift-space:       \033[24~
-!URxvt.keysym.C-space:           \033[23~
+URxvt.keysym.C-Return:          \033[24~
+URxvt.keysym.S-Return:          \033[23~
+!URxvt.keysym.C-Space:           \033[22~
+!URxvt.keysym.S-Space:           \033[21~
 
 ! Fonts
 xft.dpi:                        96
