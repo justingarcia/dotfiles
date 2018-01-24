@@ -27,7 +27,7 @@ set expandtab                   " Tabs are spaces
 " }}}
 " Text Wrapping {{{
 let &textwidth=(s:codewidth-1)  " Set textwidth to codewidth variable
-set formatoptions+=t            " Auto hard wrap text using textwidth
+"set formatoptions+=t            " Auto hard wrap text using textwidth
 set formatoptions+=l            " Don't autowrap existing long lines
 set formatoptions+=q            " Allow reformating with gq
 set wrapmargin=0                " Don't wrap based on terminal size
@@ -65,11 +65,6 @@ nnoremap j gj
 nnoremap k gk
 " For yanking line consistency
 nnoremap Y y$
-" Remap <CR> to <Esc> in insert, visual, and select modes
-inoremap <CR> <Esc>
-vnoremap <CR> <Esc>
-" <S-CR> is mapped to <F11> in Xresources
-inoremap <F11> <CR>
 
 " Insert Macros ---------------------------------------------------------------
 "inoremap --<CR> <Esc>:call FillLine('-')<CR>o

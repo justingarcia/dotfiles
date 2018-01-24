@@ -9,8 +9,8 @@ URxvt.cursorBlink:              true
 
 ! Keybindings
 ! Map <C-Return> to <ESC>
-URxvt.keysym.C-Return:          \033[24~
-URxvt.keysym.S-Return:          \033[23~
+URxvt.keysym.C-Return:          \033
+!URxvt.keysym.S-Return:          \033[23~
 !URxvt.keysym.C-Space:           \033[22~
 !URxvt.keysym.S-Space:           \033[21~
 
@@ -31,6 +31,10 @@ URxvt.shading:                  75
 
 ! Focus fading
 URxvt.fading:                   25
+
+! Fullscreen
+URxvt.perl-ext-common:          fullscreen
+URxvt.keysym.F11:               perl:fullscreen:switch
 
 ! COLORSCHEME =================================================================
 *cursorColor:                   #d7005f

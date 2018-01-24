@@ -10,15 +10,15 @@ snippet html "HTML Boilerplate" b
 </html>
 endsnippet
 
-snippet "<(\w+)(\s)" "HTML Inline Tag" ir
+snippet "<(\w+)(\s)" "HTML Inline Tag" irA
 `!p snip.rv = match.group()[0:]`$1>${2:${VISUAL}}</`!p snip.rv = match.group(1)`>
 endsnippet
 
-snippet "<(\w+)(>)" "HTML Inline Tag" ir
+snippet "<(\w+)(>)" "HTML Inline Tag" irA
 `!p snip.rv = match.group()[0:]`${1:${VISUAL}}</`!p snip.rv = match.group(1)`>
 endsnippet
 
-snippet "<(\w+)>" "HTML Block Tag" "re.match('<(\w+)><\/(\w+)>', snip.buffer[snip.line])" ier
+snippet "<\w+((\s+[^>]+\s*)|\s*)>" "HTML Block Tag" "re.match('\s*<\w+((\s+[^>]+\s*)|\s*)></\w+>\s*', snip.buffer[snip.line])" ier
 `!p snip.rv = match.group()[0:]`
     ${1:${VISUAL}}
 
