@@ -10,11 +10,11 @@ snippet html "HTML Boilerplate" b
 </html>
 endsnippet
 
-snippet "<(\w+)(\s)" "HTML Inline Tag" irA
+snippet "<(\w+)(\s)" "HTML Inline Tag" ir
 `!p snip.rv = match.group()[0:]`$1>${2:${VISUAL}}</`!p snip.rv = match.group(1)`>
 endsnippet
 
-snippet "<(\w+)(>)" "HTML Inline Tag" irA
+snippet "<(\w+)(>)" "HTML Inline Tag" ir
 `!p snip.rv = match.group()[0:]`${1:${VISUAL}}</`!p snip.rv = match.group(1)`>
 endsnippet
 

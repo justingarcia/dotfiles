@@ -58,7 +58,7 @@ function! FoldText()
 endfunction
 set foldtext=FoldText()
 " }}}
-" Macros {{{
+" Key Mappings {{{
 " General ---------------------------------------------------------------------
 " Move vertically by visual line
 nnoremap j gj
@@ -81,14 +81,13 @@ map <Space> <Leader>
 " File
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
-nnoremap <Leader>n :enew<CR>
 " Folding
 nnoremap <Leader>a za
 " Navigation
 nnoremap <Leader>z zz
-nnoremap <Leader>h Hzz
-nnoremap <Leader>l Lzz
-nnoremap <Leader>m Mzz
+nnoremap <Leader>H Hzz
+nnoremap <Leader>L Lzz
+nnoremap <Leader>M Mzz
 " Editing
 nnoremap <Leader>c cc
 nnoremap <Leader>d dd
@@ -96,15 +95,16 @@ nnoremap <Leader>y yy
 " Text wrap formatting
 nnoremap <Leader>f vipgq
 " Buffers
-nnoremap <Leader>x :bp<CR>:bd #<CR>
-"nnoremap <Leader>h :bprevious<CR>
-"nnoremap <Leader>l :bnext<CR>
-nnoremap <Leader>b :ls<CR>
+nnoremap <silent> <Leader>n :enew<CR>
+nnoremap <silent> <Leader>x :bw<CR>
+nnoremap <silent> <Leader>h :bprevious<CR>
+nnoremap <silent> <Leader>l :bnext<CR>
+nnoremap <silent> <Leader>b :ls<CR>
 " Addt
 nnoremap <Leader>p :CtrlP<CR>
 nnoremap <Leader>t :call NumberToggle()<CR>
 " }}}
-" Status Line {{{
+" Statusline {{{
 set laststatus=2                "2-line status bar
 let g:modename = {
     \ 'n'  : 'NORMAL',
@@ -139,8 +139,8 @@ function! SetStatusLine(mode)
     set statusline+=\                                   "Insert 1 space
     "Print mode name
     exe "set statusline+=".g:modename[a:mode]
-    set statusline+=\ %1*\ %m                           "Modified?
-    set statusline+=\ %<%F\                             "File+path
+    set statusline+=\ 
+    set statusline+=%1*\ %<%F\                             "File+path
     set statusline+=%=%{strlen(&ft)?&ft:'none'}\        "Filetype
     set statusline+=%{''.(&fenc!=''?&fenc:&enc).''}\    "Encoding
     "Set mode color
@@ -151,6 +151,32 @@ endfunction
 autocmd InsertEnter * call SetStatusLine(v:insertmode)
 autocmd InsertLeave * call SetStatusLine(mode())
 autocmd BufEnter    * call SetStatusLine(mode())
+" }}}
+" Tabline{{{
+set hidden                      "Switch between buffers without forcing save
+set showtabline=2               "Always show tabline
+function! Tabline()
+    let s = ''
+    for i in range(1, bufnr('$'))
+        if bufexists(i)
+            let bufname = bufname(i)
+            if (bufname != 'ControlP')
+                let bufselected = (i == bufnr('%'))
+                let bufmodified = getbufvar(i, "&mod")
+                let s .= (bufselected ? '%#TabLineSel#' : '%6*')
+                let s .= (bufname != '' ? '  '. fnamemodify(bufname, ':t') .' ': ' [new] ')
+                if bufmodified
+                    let s .= (bufselected ? '%5*[+] ' : '%7*[+] ')
+                else
+                    let s .= '    '
+                endif
+            endif
+        endif
+    endfor
+    let s .= '%#TabLineFill#'
+    return s
+endfunction
+set tabline=%!Tabline()
 " }}}
 " Misc Plugins {{{
 " PLUGINS =====================================================================

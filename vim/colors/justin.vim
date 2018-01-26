@@ -102,13 +102,18 @@ exe 'hi User1 ctermfg=' .s:white[1]    .' ctermbg=' .s:grey4[1] .' cterm=bold'
 exe 'hi User2 ctermfg=' .s:black[1]    .' ctermbg=' .s:blue[1]  .' cterm=bold'
 exe 'hi User3 ctermfg=' .s:black[1]    .' ctermbg=' .s:green[1] .' cterm=bold'
 exe 'hi User4 ctermfg=' .s:black[1]    .' ctermbg=' .s:orange[1].' cterm=bold'
+exe 'hi User5 ctermfg=' .s:red[1]      .' ctermbg=' .s:black[1] .' cterm=bold'
+exe 'hi User6 ctermfg=' .s:grey1[1]    .' ctermbg=' .s:grey4[1] .' cterm=none'
+exe 'hi User7 ctermfg=' .s:red[1]    .' ctermbg='   .s:grey4[1] .' cterm=none'
 
-exe 'hi User5 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
-exe 'hi User6 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
-exe 'hi User7 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
 exe 'hi User8 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
 exe 'hi User9 ctermfg=' .s:blue[1]    .' ctermbg=' .s:grey4[1]
 exe 'hi User0 ctermfg=' .s:pureRed[1]    .' ctermbg=' .s:grey3[1]
+
+" Tabline
+exe 'hi TabLine         ctermfg=' .s:white[1] .' ctermbg=' .s:grey3[1] . 'cterm=bold'
+exe 'hi TabLineSel        ctermfg=' .s:white[1] .' ctermbg=' .s:black[1] . 'cterm=bold'
+exe 'hi TabLineFill        ctermfg=' .s:grey4[1] .' ctermbg=' .s:white[1] . 'cterm=NONE'
 
 end
 
