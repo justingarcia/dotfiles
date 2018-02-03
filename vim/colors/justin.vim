@@ -96,7 +96,7 @@ hi PmenuSel             ctermfg=39      ctermbg=236
 
 " Status Line
 exe 'hi StatusLine      ctermfg=' .s:grey4[1]  .' ctermbg=' .s:white[1]
-"hi StatusLineNC         ctermfg=0       ctermbg=67      cterm=bold
+exe 'hi StatusLineNC    ctermfg=' .s:grey4[1]  .' ctermbg=' .s:white[1]
 
 exe 'hi User1 ctermfg=' .s:white[1]    .' ctermbg=' .s:grey4[1] .' cterm=bold'
 exe 'hi User2 ctermfg=' .s:black[1]    .' ctermbg=' .s:blue[1]  .' cterm=bold'

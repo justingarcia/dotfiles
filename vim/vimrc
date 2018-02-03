@@ -26,14 +26,18 @@ set shiftwidth=4                " Number of spaces for >>> operations
 set expandtab                   " Tabs are spaces
 " }}}
 " Text Wrapping {{{
+" Soft Wrap Options
+set wrap
+set linebreak
+" Hard Wrap Options (can be triggered with gq)
 let &textwidth=(s:codewidth-1)  " Set textwidth to codewidth variable
-"set formatoptions+=t            " Auto hard wrap text using textwidth
+set formatoptions-=t            " Don't auto hard wrap text
 set formatoptions+=l            " Don't autowrap existing long lines
 set formatoptions+=q            " Allow reformating with gq
 set wrapmargin=0                " Don't wrap based on terminal size
 " }}}
 " Performance {{{
-set lazyredraw
+"set lazyredraw
 let synmaxcol=(s:codewidth*2)
 syntax sync minlines=128
 set ttyfast                     " Fast scrolling
@@ -59,50 +63,84 @@ endfunction
 set foldtext=FoldText()
 " }}}
 " Key Mappings {{{
-" General ---------------------------------------------------------------------
+
+" Normal Mode -----------------------------------------------------------------
+" For yanking line consistency
+nnoremap Y y$
 " Move vertically by visual line
 nnoremap j gj
 nnoremap k gk
-" For yanking line consistency
-nnoremap Y y$
+" Insert lines above and below without exiting normal mode
+" <C-j> remapped to <F8> in Xresources (otherwise triggers <NL>)
+nnoremap <F8> o<Esc>
+nnoremap <C-k> O<Esc>
 
-" Insert Macros ---------------------------------------------------------------
-"inoremap --<CR> <Esc>:call FillLine('-')<CR>o
-"inoremap __<CR> <Esc>:call FillLine('_')<CR>o
-"inoremap ==<CR> <Esc>:call FillLine('=')<CR>o
+" Insert Mode -----------------------------------------------------------------
+" Move up and down rows without exiting insert mode
+" <C-j> remapped to <F8> in Xresources (otherwise triggers <NL>)
+inoremap <F8> <Esc>o
+inoremap <C-k> <Esc>O
+" Move the beginning and ending of a line easily in insert mode
+" <C-h> remapped to <F7> in Xresources (otherwise triggers <BS>)
+inoremap <F7> <Esc>I
+inoremap <C-l> <Esc>A
+
+" Horizontal Lines ------------------------------------------------------------
 function! FillLine(char)
-    set ve=all
-    exe "normal $1lv79|r" . a:char
-    set ve=
+    let s:tw = (col('.') == 1) ? 0 : col('.')
+    call setline('.', getline('.') . repeat(a:char, s:codewidth - 1 - s:tw))
 endfunction
+" <C-equal> remapped to <F12> in Xresources
+" <C-minus> remapped to <F10> in Xresources
+" <C-underscore> remapped to <F9> in Xresources
+inoremap <silent> <F12> <Esc>:call FillLine('=')<CR>A
+inoremap <silent> <F10> <Esc>:call FillLine('-')<CR>A
+inoremap <silent> <F9>  <Esc>:call FillLine('_')<CR>A
+inoremap <silent> <F6>  <Esc>:call FillLine('.')<CR>A
+
 " }}}
 " Leader Key {{{
+
+" <Space> is Leader Key
 map <Space> <Leader>
-" File
+
+" Files
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
+
 " Folding
 nnoremap <Leader>a za
-" Navigation
+
+" Page Navigation
 nnoremap <Leader>z zz
 nnoremap <Leader>H Hzz
 nnoremap <Leader>L Lzz
 nnoremap <Leader>M Mzz
-" Editing
-nnoremap <Leader>c cc
-nnoremap <Leader>d dd
-nnoremap <Leader>y yy
-" Text wrap formatting
+
+" Text Wrap Formatting
 nnoremap <Leader>f vipgq
+
 " Buffers
-nnoremap <silent> <Leader>n :enew<CR>
+nnoremap <silent> <Leader>c :enew<CR>
 nnoremap <silent> <Leader>x :bw<CR>
-nnoremap <silent> <Leader>h :bprevious<CR>
-nnoremap <silent> <Leader>l :bnext<CR>
+nnoremap <silent> <Leader>p :bprevious<CR>
+nnoremap <silent> <Leader>n :bnext<CR>
 nnoremap <silent> <Leader>b :ls<CR>
-" Addt
-nnoremap <Leader>p :CtrlP<CR>
-nnoremap <Leader>t :call NumberToggle()<CR>
+
+" Splits
+nnoremap <silent> <Leader>\| :vsplit<CR>
+nnoremap <silent> <Leader>- :split<CR>
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>j <C-w>j
+nnoremap <Leader>k <C-w>k
+nnoremap <Leader>l <C-w>l
+
+" Misc
+nnoremap <silent> <Leader>/ :CtrlP<CR>
+nnoremap <silent> <Leader>t :call NumberToggle()<CR>
+nnoremap <silent> <Leader>r :call BrowserReload()<CR>
+nnoremap <silent> <Leader>o :call BrowserOpen()<CR>
+
 " }}}
 " Statusline {{{
 set laststatus=2                "2-line status bar
@@ -160,7 +198,7 @@ function! Tabline()
     for i in range(1, bufnr('$'))
         if bufexists(i)
             let bufname = bufname(i)
-            if (bufname != 'ControlP')
+            if (bufname != 'ControlP' || bufname != '[Scratch]')
                 let bufselected = (i == bufnr('%'))
                 let bufmodified = getbufvar(i, "&mod")
                 let s .= (bufselected ? '%#TabLineSel#' : '%6*')
@@ -178,41 +216,46 @@ function! Tabline()
 endfunction
 set tabline=%!Tabline()
 " }}}
-" Misc Plugins {{{
-" PLUGINS =====================================================================
-" Nerdtree --------------------------------------------------------------------
-"let NERDTreeMinimalUI=1
-"autocmd vimenter * NERDTree | wincmd p
-"autocmd bufenter *
-"    \ if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
-"    \ | q | endif
-"
+" Plugins {{{
+
 " auto-pairs-gentle
 let g:AutoPairsUseInsertedCount = 1
-" better key bindings for UltiSnipsExpandTrigger
-" <C-CR> is mapped to <F12> in Xresources
+
+" key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<Tab>"
-let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+" <C-j> remapped to <F8> in Xresources (otherwise triggers <NL>)
+let g:UltiSnipsJumpForwardTrigger = "<F8>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 " Snippets directory
-let g:UltiSnipsSnippetsDir = $HOME."/.vim/after/ultisnips"
-let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/after/ultisnips']
-" }}}
-" Backup {{{
-set directory^=$HOME/.vimswp//  " Swapfile directory
+let g:UltiSnipsSnippetsDir = $HOME."/.vim/ultisnips"
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/ultisnips']
+
+" Nerd Commenter
+" Add spaces after comment delimeters by default
+let g:NERDSpaceDelims = 1
+
 " }}}
 " Custom Functions {{{
-" Number of Active Buffers ----------------------------------------------------
-function! NrBufs()
-    let i = bufnr('$')
-    let j = 0
-    while i >= 1
-        if buflisted(i)
-            let j += 1
-        endif
-        let i -= 1
-    endwhile
-    return j
+
+" Open File in Browser --------------------------------------------------------
+function! BrowserOpen()
+    if (&filetype == "html")
+        let currWin = system("xdotool getwindowfocus")
+        call system("google-chrome " . expand('%:p'))
+        call system("xdotool windowactivate " . currWin)
+        echom "File opened in Chrome."
+    else
+        echom "Not an HTML file."
+    endif
+endfunction
+
+" Refresh Browser -------------------------------------------------------------
+" (requires xdotool)
+function! BrowserReload()
+    let currWin = system("xdotool getwindowfocus")
+    call system("xdotool search --onlyvisible --class google-chrome windowfocus key F5")
+    call system("xdotool windowactivate " . currWin)
+    echom "Chrome refreshed (" . strftime('%H:%M:%S') . ")"
 endfunction
 
 " Toggle Relative Numbering ---------------------------------------------------
@@ -225,6 +268,12 @@ function! NumberToggle()
         set relativenumber
     endif
 endfunction
+
+" }}}
+" Backup {{{
+"
+set directory^=$HOME/.vimswp//  " Swapfile directory
+
 " }}}
 " Modeline {{{
 " vim:foldmethod=marker:foldlevel=0

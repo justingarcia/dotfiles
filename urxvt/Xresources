@@ -10,9 +10,27 @@ URxvt.cursorBlink:              true
 ! Keybindings
 ! Map <C-Return> to <ESC>
 URxvt.keysym.C-Return:          \033
-!URxvt.keysym.S-Return:          \033[23~
-!URxvt.keysym.C-Space:           \033[22~
-!URxvt.keysym.S-Space:           \033[21~
+
+! Map <S-Return> to <F13>
+!URxvt.keysym.S-Return:          \033[25~
+! Map <C-Space>  to <F14>
+!URxvt.keysym.C-space:           \033[26~
+! Map <S-Space>  to <F15>
+!URxvt.keysym.S-space:           \033[28~
+
+! Map <C-=>      to <F12> (For Vim imap)
+URxvt.keysym.C-equal:           \033[24~
+! Map <C-->      to <F10> (For Vim imap)
+URxvt.keysym.C-minus:           \033[21~
+! Map <C-_>      to <F9>  (For Vim imap)
+URxvt.keysym.C-underscore:      \033[20~
+! Map <C-j>      to <F8>  (Otherwise triggers <NL>)
+URxvt.keysym.C-j:               \033[19~
+! Map <C-h>      to <F7>  (Otherwise triggers <BS>)
+URxvt.keysym.C-h:               \033[18~
+! Map <C-.>      to <F6>  (For Vim imap)
+URxvt.keysym.C-period:          \033[17~
+
 
 ! Fonts
 xft.dpi:                        96
@@ -30,7 +48,7 @@ URxvt.transparent:              false
 URxvt.shading:                  75 
 
 ! Focus fading
-URxvt.fading:                   25
+!URxvt.fading:                   25
 
 ! Fullscreen
 URxvt.perl-ext-common:          fullscreen

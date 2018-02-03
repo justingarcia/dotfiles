@@ -1,0 +1,168 @@
+# Priority 0: Generic Tags {{{
+
+priority 0
+
+snippet "<(?P<tag>\w+)[\w\s\.\"\'\/=]*>" "HTML Inline Tag" ir
+`!p snip.rv = match.group()`${1}</`!p snip.rv = match.group('tag')`>
+endsnippet
+
+# TODO: snippet for <tag>|(inline text)</tag> where | is cursor
+context "re.match(r'\s*<(?P<tag>\w+)[\w\s\.\"\'\/=]*></(?P=tag)>', snip.buffer[snip.line])"
+snippet "<(?P<tag>\w+)[\w\s\.\"\'\/=]*>" "HTML Block Tag"  ier
+`!p snip.rv = match.group()`
+  ${1}
+
+endsnippet
+
+context "re.match(r'\s*<(?P<tag>\w+)[\w\s\.\"\'\/=]*>(.+)</(?P=tag)>', snip.buffer[snip.line])"
+snippet "(<(?P<tag>\w+)[\w\s\.\"\'\/=]*>)(.+)" "HTML Duplicate Tag" ier
+`!p snip.rv = match.group()`</`!p snip.rv = match.group('tag')`>
+`!p snip.rv = match.group(1)`${0}
+endsnippet
+
+# }}}
+# Priority 1: Boilerplate {{{
+
+priority 1
+
+snippet html "HTML Boilerplate" b
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>${1}</title>
+</head>
+<body>
+
+${0}
+
+</body>
+</html>
+endsnippet
+
+snippet "tabl?e?" "HTML Table" r
+<table>
+<thead>
+  <tr>
+    <th>${1}</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>${2}</td>
+  </tr>${3}
+</tbody>
+</table>
+endsnippet
+
+# }}}
+# Priority 2: Specific Tags {{{
+
+priority 2
+
+# Document & Head Tags --------------------------------------------------------
+
+snippet "<?!-?-?" "HTML Comment" r
+<!-- ${1:${VISUAL}} -->
+endsnippet
+
+snippet "doct?y?p?e?" "HTML5 Doctype" br
+<!DOCTYPE html>
+endsnippet
+
+snippet "link?" "HTML5 Link" r
+<link href="${1}" rel="${2:stylesheet}">
+endsnippet
+
+snippet "scri?p?t?" "HTML5 Script" r
+<script src="${1}"></script>
+endsnippet
+
+snippet "styl?e?" "HTML Style" r
+<style type="${1:text/css}">${2}</style>
+endsnippet
+
+# Body Tags -------------------------------------------------------------------
+
+snippet "h([123456])" "HTML Header" br
+<h`!p snip.rv = match.group(1)`>${0}</h`!p snip.rv = match.group(1)`>
+endsnippet
+
+snippet "(\w*(?<![spt]))a" "HTML Anchor" ir
+<a href="${1}">${2}</a>
+endsnippet
+
+snippet "(\w*(?<!s))p" "HTML Paragraph" ir
+<p>${1}</p>
+endsnippet
+
+snippet img "HTML Image" i
+<img src="${1}" alt="${2:picture}">
+endsnippet
+
+snippet "div" "HTML Div" r
+<div>${1}</div>
+endsnippet
+
+snippet "spa?n?" "HTML Span" r
+<span>${1}</span>
+endsnippet
+
+# Lists -----------------------------------------------------------------------
+
+snippet "(ul|ol)" "HTML List" br
+<`!p snip.rv = match.group(1)`>
+  <li>${1}</li>
+</`!p snip.rv = match.group(1)`>
+endsnippet
+
+snippet li "HTML List Item"
+<li>${1}</li>
+endsnippet
+
+# Tables ----------------------------------------------------------------------
+
+snippet "capt?i?o?n?" "HTML Table Caption" r
+<caption>${1}</caption>
+endsnippet
+
+snippet "t([dhr])" "HTML Table Item" br
+<t`!p snip.rv = match.group(1)`>${0}</t`!p snip.rv = match.group(1)`>
+endsnippet
+
+# Forms and Input -------------------------------------------------------------
+
+snippet "for?m?" "HTML Form" r
+<form action="${1}" method="${2:get}">${3}</form>
+endsnippet
+
+snippet "inp?u?t?" "HTML Form Input" r
+<input type="${1:text}"${2}>
+endsnippet
+
+snippet "lab?e?l?" "HTML Form Input Label" r
+<label>${1}</label>
+endsnippet
+
+snippet "text?a?r?e?a?" "HTML Form Text Area" r
+<textarea>${1}</textarea>
+endsnippet
+
+snippet "sele?c?t?" "HTML Form Select" r
+<select name="${1}">
+  <option>${2}</option>
+</select>
+endsnippet
+
+snippet "opt?i?o?n?" "HTML Form Select Option" r
+<option>${1}</option>
+endsnippet
+
+snippet "butt?o?n?" "HTML Button" ir
+<button>${1}</button>
+endsnippet
+
+# }}}
+# Modeline {{{
+# vim:foldmethod=marker:foldlevel=0
+# }}}
