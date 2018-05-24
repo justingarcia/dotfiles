@@ -2,20 +2,20 @@
 
 priority 0
 
-snippet "<(?P<tag>\w+)[\w\s\.\"\'\/=]*>" "HTML Inline Tag" ir
+snippet "<(?P<tag>\w+)[\w\s\.\"\'\#\/=-]*>" "HTML Inline Tag" ir
 `!p snip.rv = match.group()`${1}</`!p snip.rv = match.group('tag')`>
 endsnippet
 
 # TODO: snippet for <tag>|(inline text)</tag> where | is cursor
-context "re.match(r'\s*<(?P<tag>\w+)[\w\s\.\"\'\/=]*></(?P=tag)>', snip.buffer[snip.line])"
-snippet "<(?P<tag>\w+)[\w\s\.\"\'\/=]*>" "HTML Block Tag"  ier
+context "re.match(r'\s*<(?P<tag>\w+)[\w\s\.\"\'\#\/=-]*></(?P=tag)>', snip.buffer[snip.line])"
+snippet "<(?P<tag>\w+)[\w\s\.\"\'\#\/=-]*>" "HTML Block Tag"  ier
 `!p snip.rv = match.group()`
   ${1}
 
 endsnippet
 
-context "re.match(r'\s*<(?P<tag>\w+)[\w\s\.\"\'\/=]*>(.+)</(?P=tag)>', snip.buffer[snip.line])"
-snippet "(<(?P<tag>\w+)[\w\s\.\"\'\/=]*>)(.+)" "HTML Duplicate Tag" ier
+context "re.match(r'\s*<(?P<tag>\w+)[\w\s\.\"\'\#\/=-]*>(.+)</(?P=tag)>', snip.buffer[snip.line])"
+snippet "(<(?P<tag>\w+)[\w\s\.\"\'\#\/=-]*>)(.+)" "HTML Duplicate Tag" ier
 `!p snip.rv = match.group()`</`!p snip.rv = match.group('tag')`>
 `!p snip.rv = match.group(1)`${0}
 endsnippet
@@ -93,7 +93,7 @@ snippet "(\w*(?<![spt]))a" "HTML Anchor" ir
 endsnippet
 
 snippet "(\w*(?<!s))p" "HTML Paragraph" ir
-<p>${1}</p>
+<p${1}>${2}</p>
 endsnippet
 
 snippet img "HTML Image" i
@@ -101,11 +101,15 @@ snippet img "HTML Image" i
 endsnippet
 
 snippet "div" "HTML Div" r
-<div>${1}</div>
+<div${1}>${2}</div>
 endsnippet
 
 snippet "spa?n?" "HTML Span" r
-<span>${1}</span>
+<span${1}>${2}</span>
+endsnippet
+
+snippet nav "HTML Navigation" i
+<nav>${1}</nav>
 endsnippet
 
 # Lists -----------------------------------------------------------------------
@@ -163,6 +167,31 @@ snippet "butt?o?n?" "HTML Button" ir
 endsnippet
 
 # }}}
+# Priority 3: CDNs {{{
+
+snippet jq3 "jQuery v3.x Uncompressed" b
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+crossorigin="anonymous"></script>
+endsnippet
+
+snippet bs3css "Bootstrap v3.3.7 CSS" b
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+crossorigin="anonymous">
+endsnippet
+
+snippet bs3js  "Bootstrap v3.3.7 JS" b
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+crossorigin="anonymous"></script>
+endsnippet
+
+snippet fa "Font Awesome v5.0.6" b
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+endsnippet
+
+#}}}
 # Modeline {{{
 # vim:foldmethod=marker:foldlevel=0
 # }}}

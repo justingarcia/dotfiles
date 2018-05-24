@@ -7,12 +7,15 @@ URxvt.scrollBar:                false
 URxvt.secondaryScroll:          true
 URxvt.cursorBlink:              true
 
+! Default window geometry
+URxvt.geometry: 80x43
+
 ! Keybindings
 ! Map <C-Return> to <ESC>
-URxvt.keysym.C-Return:          \033
+!URxvt.keysym.C-Return:          \033
 
-! Map <S-Return> to <F13>
-!URxvt.keysym.S-Return:          \033[25~
+! Map <S-Return> to <F9>
+URxvt.keysym.S-Return:          \033[20~
 ! Map <C-Space>  to <F14>
 !URxvt.keysym.C-space:           \033[26~
 ! Map <S-Space>  to <F15>
@@ -23,25 +26,33 @@ URxvt.keysym.C-equal:           \033[24~
 ! Map <C-->      to <F10> (For Vim imap)
 URxvt.keysym.C-minus:           \033[21~
 ! Map <C-_>      to <F9>  (For Vim imap)
-URxvt.keysym.C-underscore:      \033[20~
+!URxvt.keysym.C-underscore:      \033[20~
 ! Map <C-j>      to <F8>  (Otherwise triggers <NL>)
 URxvt.keysym.C-j:               \033[19~
-! Map <C-h>      to <F7>  (Otherwise triggers <BS>)
-URxvt.keysym.C-h:               \033[18~
+! Map <C-i>      to <F7>  (Otherwise triggers <Tab>)
+!URxvt.keysym.C-i:               \033[18~
 ! Map <C-.>      to <F6>  (For Vim imap)
 URxvt.keysym.C-period:          \033[17~
+! Map <C-m>      to <F5>  (For Vim imap)
+!URxvt.keysym.C-m:               \033[15~
+! Map <C-,>      to <F7>  (For Vim imap)
+URxvt.keysym.C-comma:           \033[18~
+
 
 
 ! Fonts
-xft.dpi:                        96
-xft.antialias:                  true
-xft.rgba:                       rgb
-xft.hinting:                    true
-xft.hintstyle:                  hintfull
+!xft.dpi:                        96
+!xft.antialias:                  false
+!ft.hinting:                    false
+!xft.hintstyle:                  hintfull
+!ft.rgba:                       rgb
 
-URxvt.font:                     xft:InconsolataGo Nerd Font:Regular:pixelsize=12
-URxvt*faceName:                 xft:InconsolataGo Nerd Font:Regular:pixelsize=12
-URxvt.letterSpace:              -1
+!URxvt.font:                     xft:InconsolataGo Nerd Font:Regular:pixelsize=12
+!URxvt*faceName:                 xft:InconsolataGo Nerd Font:Regular:pixelsize=12
+!URxvt.letterSpace:              -1
+URxvt.font: -ctrld-fixed-medium-r-normal--13-80-96-96-c-80-iso10646-1
+URxvt.boldFont: -ctrld-fixed-medium-r-normal--13-80-96-96-c-80-iso10646-1
+!URxvt.boldFont: -ctrld-fixed-bold-r-normal--13-80-96-96-c-70-ISO10646-1
 
 ! Background Transparency
 URxvt.transparent:              false

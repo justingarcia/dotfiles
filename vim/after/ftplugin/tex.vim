@@ -1,3 +1,3 @@
 " GENERAL SETTINGS ============================================================
 " Word wrap on text
-set formatoptions=crawnotq
+"set formatoptions=crawnotq

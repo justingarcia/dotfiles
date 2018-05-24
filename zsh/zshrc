@@ -1,6 +1,6 @@
 # General ---------------------------------------------------------------------
 setopt RM_STAR_WAIT     # Sanity check for 'rm *'
-KEYTIMEOUT=1            # Time to wait for multi-char seq (0.001 seconds)
+KEYTIMEOUT=1            # Time to wait for multi-char seq (0.01 seconds)
 
 # Colors ----------------------------------------------------------------------
 autoload -U colors && colors
@@ -61,4 +61,4 @@ alias l='ls -CF'
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Blender ---------------------------------------------------------------------
-export OCIO="/home/justin/filmic-blender/config.ocio"
+#export OCIO="/home/justin/filmic-blender/config.ocio"

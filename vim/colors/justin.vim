@@ -13,6 +13,7 @@ if &t_Co > 255
 let s:black  = [ '#121212', 233 ]
 let s:grey4  = [ '#1c1c1c', 234 ]
 let s:grey3  = [ '#262626', 235 ]
+let s:grey2a = [ '#3a3a3a', 237 ]
 let s:grey2  = [ '#767676', 243 ]
 let s:grey1  = [ '#a8a8a8', 248 ]
 let s:white  = [ '#ffffd7', 230 ]
@@ -73,16 +74,21 @@ exe 'hi Delimiter       ctermfg=' .s:white[1]
 "hi SpecialChar
 
 " Non Text Areas --------------------------------------------------------------
+"hi NonText              ctermfg=248     ctermbg=235
 hi ColorColumn                          ctermbg=234
-hi NonText              ctermfg=248     ctermbg=234
 hi LineNr               ctermfg=248     ctermbg=233
-hi VertSplit            ctermfg=0       ctermbg=232
+exe 'hi VertSplit       ctermfg=' .s:grey4[1]
+hi EndOfBuffer          ctermfg=233     ctermbg=233
 exe 'hi Folded          ctermfg=' .s:orange[1] .' ctermbg=' .s:black[1]
+exe 'hi SignColumn      ctermbg=' .s:black[1]
+exe 'hi ALEErrorSign    ctermfg=' .s:white[1]  .' ctermbg=' .s:pureRed[1]
+exe 'hi ALEWarningSign  ctermfg=' .s:white[1]  .' ctermbg=' .s:orange[1]
+exe 'hi SpecialKey      ctermfg=' .s:grey2a[1] .' ctermbg=' .s:black[1]
 
 " Cursor Highlighting ---------------------------------------------------------
-hi CursorLine                           ctermbg=235     cterm=none
-hi CursorLineNr         ctermfg=215     ctermbg=235
-hi MatchParen           ctermfg=233     ctermbg=215     cterm=bold
+exe 'hi CursorLine      ctermbg=' .s:grey2a[1]  .' cterm=none'
+exe 'hi CursorLineNr    ctermfg=' .s:orange[1] .' ctermbg=' .s:black[1]
+exe 'hi MatchParen      ctermfg=' .s:black[1]  .' ctermbg='  s:orange[1]  .'cterm=bold'
 
 " Visual Mode -----------------------------------------------------------------
 hi Visual               ctermfg=233     ctermbg=215
@@ -112,8 +118,8 @@ exe 'hi User0 ctermfg=' .s:pureRed[1]    .' ctermbg=' .s:grey3[1]
 
 " Tabline
 exe 'hi TabLine         ctermfg=' .s:white[1] .' ctermbg=' .s:grey3[1] . 'cterm=bold'
-exe 'hi TabLineSel        ctermfg=' .s:white[1] .' ctermbg=' .s:black[1] . 'cterm=bold'
-exe 'hi TabLineFill        ctermfg=' .s:grey4[1] .' ctermbg=' .s:white[1] . 'cterm=NONE'
+exe 'hi TabLineSel      ctermfg=' .s:white[1] .' ctermbg=' .s:black[1] . 'cterm=bold'
+exe 'hi TabLineFill     ctermfg=' .s:grey4[1] .' ctermbg=' .s:white[1] . 'cterm=NONE'
 
 end
 
@@ -139,7 +145,6 @@ end
 "
 "   hi Keyword         ctermfg=33               cterm=bold
 "   hi Label           ctermfg=229               cterm=none
-"   hi SpecialKey      ctermfg=81
 "   hi MailHeaderEmail ctermfg=3  ctermbg=233
 "   hi MailEmail       ctermfg=3  ctermbg=233
 "
@@ -156,7 +161,6 @@ end
 "   hi Search          ctermfg=253 ctermbg=66
 "
 "   " marks column
-"   hi SignColumn      ctermfg=118 ctermbg=235
 "   hi SpecialComment  ctermfg=245               cterm=bold
 "   hi Special         ctermfg=81  ctermbg=232
 "   hi SpecialKey      ctermfg=245

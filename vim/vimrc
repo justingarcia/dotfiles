@@ -1,31 +1,100 @@
 " General {{{
-set encoding=utf-8              " Encoding
+
 let s:codewidth=80              " Maximum line length (+1)
+let synmaxcol=(s:codewidth*2)
+set encoding=utf-8              " Encoding
 set timeoutlen=250
 set ttimeoutlen=0
+set ttyfast                     " Fast scrolling
+set synmaxcol=128               " For performance
+"syntax sync minlines=256        " For performance
+"set regexpengine=1              " Use older, faster regex engine
+set regexpengine=0              " Switch between older and faster engines 
+"let loaded_matchparen = 1       " Disable parenthesis highlighting
 set modeline                    " Special comments for file-specific settings
+set title                       " Change the terminal's title
+
 " }}}
-" Colors {{{
+" UI & Color {{{
+
 colorscheme justin              " vim/colors/justin.vim
 syntax enable                   " Enable syntax processing
 " Background color change at codewidth+1
-let &colorcolumn=join(range(s:codewidth+1, 999), ",")
-" }}}
-" UI Layout {{{
+"let &colorcolumn=join(range(s:codewidth+1, 999), ",")
 set number                      " Show line numbers
-filetype plugin indent on       " Filetype dependent indenting
 set formatoptions=              " Clear default format options
 set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:-    " Fill Characters
 "set formatoptions+=ro           " Auto insert comment leader
 "set cursorline                  " Enable cursor line highlighting
+let &colorcolumn=s:codewidth
 "set scrolloff=999               " Lock cursor to middle of screen
+
 " }}}
 " Spaces & Tabs {{{
-set softtabstop=4               " Number of spaces in tab when editing
-set shiftwidth=4                " Number of spaces for >>> operations
-set expandtab                   " Tabs are spaces
+
+filetype plugin indent on       " Filetype dependent indenting
+" set softtabstop=2               " Number of spaces in tab when editing
+" set shiftwidth=2                " Number of spaces for >>> operations
+" set expandtab                   " Tabs are spaces
+
+" use 2 spaces for tabs
+set tabstop=2 softtabstop=2 shiftwidth=2
+
+" display indentation guides
+set list listchars=tab:\│\ ,trail:·,extends:»,precedes:«,nbsp:×
+
+" }}}
+" Bracket Characters {{{
+
+" Automatic Bracket Setting
+" <expr> is used to place cursor in between brackets
+inoremap <expr><silent> { IsNFromEnd(0) ? "{}\<C-o>i" : "{}\<C-o>h"
+inoremap <expr><silent> ( IsNFromEnd(0) ? "()\<C-o>i" : "()\<C-o>h"
+inoremap <expr><silent> [ IsNFromEnd(0) ? "[]\<C-o>i" : "[]\<C-o>h"
+
+let g:brackEnds = ['}', ')', ']']
+
+function! IsEndBrack()
+    let s:curr = matchstr(getline('.'), '\%' . col('.') . 'c.')
+    return !(index(g:brackEnds, s:curr) == -1)
+endfunction
+
+function! IsNFromEnd(n)
+    return col(".") == col("$")-a:n
+endfunction
+
+inoremap <expr><silent> } IsEndBrack() ? IsNFromEnd(1) ? "\<C-o>A" : "\<C-o>l" : "}"
+inoremap <expr><silent> ) IsEndBrack() ? IsNFromEnd(1) ? "\<C-o>A" : "\<C-o>l" : ")"
+inoremap <expr><silent> ] IsEndBrack() ? IsNFromEnd(1) ? "\<C-o>A" : "\<C-o>l" : "]"
+
+" <C-i> remapped to <F7> in Xresources (otherwise triggers <Tab>)
+" <C-m> remapped to <F5> in Xresources (Enter key triggers C-m)
+"imap <C-u> {
+"imap <F7>  }
+"imap <C-n> (
+"imap <F5>  )
+"imap <C-o> [
+"imap <C-p> ]
+
+let g:brackPairs = {
+    \ '{' : '}',
+    \ '(' : ')',
+    \ '[' : ']'
+    \}
+
+function! IsInBrackPairs()
+    let s:curr = matchstr(getline('.'), '\%' . col('.') . 'c.')
+    let s:prev = matchstr(getline('.'), '\%' . (col('.') - 1) . 'c.')
+    return !(get(g:brackPairs, s:prev, -1) == -1) && s:curr == g:brackPairs[s:prev]
+endfunction
+
+" <C-j> remapped to <F8> in Xresources (otherwise triggers <NL>)
+inoremap <expr><silent> <F8> IsInBrackPairs() ? "\<CR>\<CR>\<C-o>k\<C-o>S" : "\<C-o>o"
+inoremap <expr><silent> <BS> IsInBrackPairs() ? IsNFromEnd(1) ? "\<C-o>A\<BS>\<BS>" : "\<C-o>l\<BS>\<BS>" : "\<BS>"
+
 " }}}
 " Text Wrapping {{{
+
 " Soft Wrap Options
 set wrap
 set linebreak
@@ -35,16 +104,10 @@ set formatoptions-=t            " Don't auto hard wrap text
 set formatoptions+=l            " Don't autowrap existing long lines
 set formatoptions+=q            " Allow reformating with gq
 set wrapmargin=0                " Don't wrap based on terminal size
-" }}}
-" Performance {{{
-"set lazyredraw
-let synmaxcol=(s:codewidth*2)
-syntax sync minlines=128
-set ttyfast                     " Fast scrolling
-set regexpengine=1              " Use older, faster regex engine
-let loaded_matchparen = 1       " Disable parenthesis highlighting
+
 " }}}
 " Folding {{{
+
 set foldenable                  " Enable folding
 set foldlevelstart=10           " Open most folds by default
 set foldnestmax=10              " 10 nested fold max
@@ -61,8 +124,22 @@ function! FoldText()
     return foldtextstart . repeat(foldchar, s:codewidth-1-foldtextlength) . foldtextend . repeat(' ', winwidth(0)-s:codewidth-1)
 endfunction
 set foldtext=FoldText()
+
+" }}}
+" Splits {{{
+
+set splitright                  " New vertical splits on right
+set splitbelow                  " New horizontal splits on bottom
+
 " }}}
 " Key Mappings {{{
+
+" All Modes -------------------------------------------------------------------
+" <CR> to exit mode
+" Double <Esc> to deal with Ctrl+J bracket bug
+" See 'Completion' section for imap explanation
+noremap <CR> <Esc>
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<Esc>\<Esc>"
 
 " Normal Mode -----------------------------------------------------------------
 " For yanking line consistency
@@ -75,15 +152,25 @@ nnoremap k gk
 nnoremap <F8> o<Esc>
 nnoremap <C-k> O<Esc>
 
+nnoremap <S-k> <Nop>
+
 " Insert Mode -----------------------------------------------------------------
+" <S-CR> to insert newline
+" <S-CR> mapped to <F9> in terminal
+inoremap <F9> <CR>
+
 " Move up and down rows without exiting insert mode
-" <C-j> remapped to <F8> in Xresources (otherwise triggers <NL>)
-inoremap <F8> <Esc>o
 inoremap <C-k> <Esc>O
-" Move the beginning and ending of a line easily in insert mode
-" <C-h> remapped to <F7> in Xresources (otherwise triggers <BS>)
-inoremap <F7> <Esc>I
+" See Bracket Characters section for imap reason
+imap <C-h> <BS>
+" Move the end of a line easily in insert mode
 inoremap <C-l> <Esc>A
+
+" Additional Symbols
+"inoremap <C-b> =
+"inoremap <C-v> +
+"inoremap <C-t> _
+"inoremap <C-y> -
 
 " Horizontal Lines ------------------------------------------------------------
 function! FillLine(char)
@@ -92,10 +179,10 @@ function! FillLine(char)
 endfunction
 " <C-equal> remapped to <F12> in Xresources
 " <C-minus> remapped to <F10> in Xresources
-" <C-underscore> remapped to <F9> in Xresources
+" <C-underscore> remapped to <F9> in Xresources (REMOVED)
 inoremap <silent> <F12> <Esc>:call FillLine('=')<CR>A
 inoremap <silent> <F10> <Esc>:call FillLine('-')<CR>A
-inoremap <silent> <F9>  <Esc>:call FillLine('_')<CR>A
+"inoremap <silent> <F9>  <Esc>:call FillLine('_')<CR>A
 inoremap <silent> <F6>  <Esc>:call FillLine('.')<CR>A
 
 " }}}
@@ -105,8 +192,8 @@ inoremap <silent> <F6>  <Esc>:call FillLine('.')<CR>A
 map <Space> <Leader>
 
 " Files
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q<CR>
+nnoremap <silent> <Leader>w :w<CR>
+nnoremap <silent> <Leader>q :qa<CR>
 
 " Folding
 nnoremap <Leader>a za
@@ -122,7 +209,7 @@ nnoremap <Leader>f vipgq
 
 " Buffers
 nnoremap <silent> <Leader>c :enew<CR>
-nnoremap <silent> <Leader>x :bw<CR>
+nnoremap <silent> <Leader>x :b#<bar>bw#<CR>
 nnoremap <silent> <Leader>p :bprevious<CR>
 nnoremap <silent> <Leader>n :bnext<CR>
 nnoremap <silent> <Leader>b :ls<CR>
@@ -136,14 +223,17 @@ nnoremap <Leader>k <C-w>k
 nnoremap <Leader>l <C-w>l
 
 " Misc
-nnoremap <silent> <Leader>/ :CtrlP<CR>
 nnoremap <silent> <Leader>t :call NumberToggle()<CR>
-nnoremap <silent> <Leader>r :call BrowserReload()<CR>
-nnoremap <silent> <Leader>o :call BrowserOpen()<CR>
+nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
+" nnoremap <silent> <Leader>r :call BrowserReload()<CR>
+" nnoremap <silent> <Leader>o :call BrowserOpen()<CR>
 
 " }}}
 " Statusline {{{
-set laststatus=2                "2-line status bar
+
+"2-line status bar
+set laststatus=2
+
 let g:modename = {
     \ 'n'  : 'NORMAL',
     \ 'no' : 'N-OPERATOR',
@@ -165,74 +255,193 @@ let g:modename = {
     \ '!'  : 'SHELL',
     \ 't'  : 'TERMINAL'
     \}
+
 let g:modecolor = {
     \ 'n'  : '2',
     \ 'i'  : '3',
     \ 'v'  : '4'
     \}
-function! SetStatusLine(mode)
-    set statusline=
-    "Set mode color
-    exe "set statusline+=%".g:modecolor[a:mode]."*"     
-    set statusline+=\                                   "Insert 1 space
-    "Print mode name
-    exe "set statusline+=".g:modename[a:mode]
-    set statusline+=\ 
-    set statusline+=%1*\ %<%F\                             "File+path
-    set statusline+=%=%{strlen(&ft)?&ft:'none'}\        "Filetype
-    set statusline+=%{''.(&fenc!=''?&fenc:&enc).''}\    "Encoding
-    "Set mode color
-    exe "set statusline+=%".g:modecolor[a:mode]."*"
-    set statusline+=\ %03l:%03c\                        "Row and col
+
+function! StatusLine(mode)
+    let s = ''
+    let s .= '%' .g:modecolor[a:mode] .'*'              "Set   mode color
+    let s .= ' ' .g:modename[a:mode] .' '               "Print mode name
+    let s .= '%1*'                                      "Set   default color
+    let s .= ' %{expand(''%:~:.'')} '                   "Print file+rel path
+    let s .= '%='                                       "Align right
+    let s .= &filetype .' '                             "Print filetype
+    let s .= '%{''''.(&fenc!=''''?&fenc:&enc).''''} '   "Print encoding
+    let s .= '%' .g:modecolor[a:mode] .'*'              "Set   mode color
+    let s .= ' %03l:%03c '                              "Print row and col
+    let &l:statusline = s
 endfunction
 
-autocmd InsertEnter * call SetStatusLine(v:insertmode)
-autocmd InsertLeave * call SetStatusLine(mode())
-autocmd BufEnter    * call SetStatusLine(mode())
 " }}}
 " Tabline{{{
+
 set hidden                      "Switch between buffers without forcing save
 set showtabline=2               "Always show tabline
+
 function! Tabline()
     let s = ''
+"   let s .= repeat(' ', 1 + winwidth(bufwinnr('NetrwTreeListing')))
+    if exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
+      let s .= repeat(' ', 1 + winwidth(bufwinnr(t:NERDTreeBufName)))
+    endif
     for i in range(1, bufnr('$'))
-        if bufexists(i)
+        if buflisted(i)
             let bufname = bufname(i)
-            if (bufname != 'ControlP' || bufname != '[Scratch]')
-                let bufselected = (i == bufnr('%'))
-                let bufmodified = getbufvar(i, "&mod")
-                let s .= (bufselected ? '%#TabLineSel#' : '%6*')
-                let s .= (bufname != '' ? '  '. fnamemodify(bufname, ':t') .' ': ' [new] ')
-                if bufmodified
-                    let s .= (bufselected ? '%5*[+] ' : '%7*[+] ')
-                else
-                    let s .= '    '
-                endif
+            let bufselected = (i == bufnr('%'))
+            let bufmodified = getbufvar(i, "&mod")
+            let s .= (bufselected ? '%#TabLineSel#' : '%6*')
+            let s .= (bufname != '' ? '  '. fnamemodify(bufname, ':t') .' ': ' [new] ')
+            if bufmodified
+                let s .= (bufselected ? '%5*[+] ' : '%7*[+] ')
+            else
+                let s .= repeat(' ', 3)
             endif
         endif
     endfor
     let s .= '%#TabLineFill#'
     return s
 endfunction
+
 set tabline=%!Tabline()
+
 " }}}
-" Plugins {{{
+" netrw{{{
 
-" auto-pairs-gentle
-let g:AutoPairsUseInsertedCount = 1
+" let g:netrw_banner = 0        " disable top information banner
+" let g:netrw_liststyle = 3     " tree style listing
+" let g:netrw_browse_split = 4  " open the file in the previous window
+" let g:netrw_altv = 1          " to the right of the project drawer
+" let g:netrw_winsize = -30     " window width (- denotes absolute width in col)
+" "let g:netrw_keepdir = 0       " current directory same as browsing directory
 
-" key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<Tab>"
-" <C-j> remapped to <F8> in Xresources (otherwise triggers <NL>)
-let g:UltiSnipsJumpForwardTrigger = "<F8>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
-" Snippets directory
-let g:UltiSnipsSnippetsDir = $HOME."/.vim/ultisnips"
-let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/ultisnips']
+" " do not change working directory when opening new files, etc.
+" set noautochdir
 
-" Nerd Commenter
-" Add spaces after comment delimeters by default
-let g:NERDSpaceDelims = 1
+" function! ToggleVExplorer()
+"   if exists("t:expl_buf_num")
+"       let expl_win_num = bufwinnr(t:expl_buf_num)
+"       if expl_win_num != -1
+"           "let cur_win_nr = winnr()
+"           exec expl_win_num . 'wincmd w'
+"           close
+"           " exec cur_win_nr . 'wincmd w'
+"           exec winnr('#') . 'wincmd w'
+"       endif
+"       unlet t:expl_buf_num
+
+"   else
+"       exec '1wincmd w'
+"       exec "Vexplore " . getcwd()
+"       let t:expl_buf_num = bufnr("%")
+"   endif
+" endfunction
+
+" " Toggle Vexplore with Leader-e
+" nnoremap <silent> <Leader>e :call ToggleVExplorer()<CR>
+
+" " Close netrw if it is the last buffer
+" "autocmd bufenter * if (winnr("$") == 1 && exists("t:expl_buf_num")) | q | endif
+
+" }}}
+" Completion{{{
+
+" NOTE: 'filetype plugin on' must be set
+
+" Enable omnicomplete for all syntaxes
+set omnifunc=syntaxcomplete#Complete
+
+" Enable completion popup menu
+set completeopt=longest,menuone,noinsert
+
+" Popup menu maximum height
+set pumheight=5
+
+" Trigger popup menu with keystrokes in insert mode
+" function! OpenCompletion()
+"   if !pumvisible() 
+"     \ && (strchars(expand('<cword>')) > 1)
+"     \ && ((v:char >= 'a' && v:char <= 'z') || (v:char >= 'A' && v:char <= 'Z'))
+"     let save_pos = getpos('.')
+    
+"     call feedkeys("\<C-x>\<C-o>", "n")
+"   endif
+" endfunction
+
+" autocmd InsertCharPre * call OpenCompletion()
+
+" <tab> to trigger popup menu
+function! Smart_TabComplete()
+  let line = getline('.')                         " current line
+
+  let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+                                                  " line to one character right
+                                                  " of the cursor
+  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+  if (strlen(substr)==0)                          " nothing to match on empty string
+    return "\<tab>"
+  endif
+  let has_period = match(substr, '\.') != -1      " position of period, if any
+  let has_slash = match(substr, '\/') != -1       " position of slash, if any
+  if (!has_period && !has_slash)
+    return "\<C-X>\<C-P>"                         " existing text matching
+  elseif ( has_slash )
+    return "\<C-X>\<C-F>"                         " file matching
+  else
+    return "\<C-X>\<C-O>"                         " plugin matching
+  endif
+endfunction
+
+function! HighlightFirstItem()
+  if (pumvisible())
+    return "\<C-N>"
+  else
+    return ""
+  endif
+endfunction
+
+inoremap <expr><silent> <tab> 
+  \ pumvisible() 
+  \ ? "<C-n>" 
+  \ : "<C-r>=Smart_TabComplete()<CR><C-r>=HighlightFirstItem()<CR>"
+
+" }}}
+" Session Management {{{
+
+set sessionoptions-=options
+let g:session = getcwd() . '/.session.vim'
+
+function! SaveSess()
+  if !argc()
+    let file = expand(g:session)
+    if filereadable(file)
+      exe 'mksession! ' . g:session
+    endif
+  endif
+endfunction
+
+function! RestoreSess()
+  if !argc()
+    let file = expand(g:session)
+    if filereadable(file)
+      exe 'source ' . g:session
+      if bufexists(1)
+        for l in range(1, bufnr('$'))
+          if bufwinnr(1) == -1
+            exe 'sbuffer ' . l
+          endif
+        endfor
+      endif
+      echo 'Session restored.'
+    else
+      exe 'mksession! ' . g:session
+      echo 'New session created for "' . getcwd() . '"'
+    endif
+  endif
+endfunction
 
 " }}}
 " Custom Functions {{{
@@ -243,7 +452,7 @@ function! BrowserOpen()
         let currWin = system("xdotool getwindowfocus")
         call system("google-chrome " . expand('%:p'))
         call system("xdotool windowactivate " . currWin)
-        echom "File opened in Chrome."
+        echom "\"" . expand("%:t") . "\" opened in Chrome."
     else
         echom "Not an HTML file."
     endif
@@ -264,15 +473,202 @@ function! NumberToggle()
         set number
         set norelativenumber
     else
-        set nonumber
+        set number
         set relativenumber
     endif
 endfunction
 
+" returns true iff current window contains a modifiable file and we're not in vimdiff
+function! IsLiveBuf()
+  return &modifiable && !&diff && strlen(expand('%')) > 0
+endfunction
+
+
+" returns true iff is NERDTree open/active
+" for netrw use expand('%') =~ 'NetrwTreeListing'
+function! IsTreeOpen()
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+
+function! IsBufTree()
+  return IsTreeOpen() && expand('%') == t:NERDTreeBufName
+endfunction
+
+" calls NERDTreeFind iff NERDTree is active, current window contains a modifiable file, and we're not in vimdiff
+function! SyncTree()
+  if IsTreeOpen() && IsLiveBuf()
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+
 " }}}
 " Backup {{{
-"
-set directory^=$HOME/.vimswp//  " Swapfile directory
+
+set noswapfile                  " Disable swapfile creation
+set directory^=$HOME/.vimswp//  " Swapfile directory (if enabled)
+
+" }}}
+" Plugins {{{
+
+" ALE -------------------------------------------------------------------------
+" Only run linters when files are saved
+let g:ale_lint_on_text_changed = 'never'
+
+let g:ale_linters = {
+\ 'javascript': ['eslint']
+\ }
+
+let g:ale_fixers = {
+\ 'javascript': ['prettier', 'eslint']
+\ }
+
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+
+" Emmet -----------------------------------------------------------------------
+"imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+
+" <C-,> remapped to <F7> in Xresources
+let g:user_emmet_leader_key='<F7>'
+
+" So that 'class' is replaced by 'className' in JSX/React
+let g:user_emmet_settings = {
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
+\  'javascript.jsx' : {
+\      'extends' : 'jsx',
+\  },
+\}
+
+" Ultisnips -------------------------------------------------------------------
+" key bindings for UltiSnipsExpandTrigger
+"let g:UltiSnipsExpandTrigger = "<Tab>"
+" <C-j> remapped to <F8> in Xresources (otherwise triggers <NL>)
+"let g:UltiSnipsJumpForwardTrigger = "<F8>"
+"let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
+" Snippets directory
+"let g:UltiSnipsSnippetsDir = $HOME."/.vim/ultisnips"
+"let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/ultisnips']
+
+" NERDTree --------------------------------------------------------------------
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeShowHidden = 1
+let NERDTreeStatusline = ' '
+
+" Nerd Commenter --------------------------------------------------------------
+" Turn off default bindings
+let g:NERDCreateDefaultMappings = 0
+" Map comment toggle to <C-/>
+nmap <C-_> <plug>NERDCommenterToggle
+vmap <C-_> <plug>NERDCommenterToggle
+" Add spaces after comment delimeters by default
+let g:NERDSpaceDelims = 1
+" Align line-wise comment delimeters flush left instead of following code
+" indetation
+let g:NERDDefaultAlign = 'left'
+
+" Polyglot --------------------------------------------------------------------
+let g:polyglot_disabled = ['latex']
+
+" Help Files ------------------------------------------------------------------
+" Put these lines at the very end of your vimrc file.
+
+" Load all plugins now.
+" Plugins need to be added to runtimepath before helptags can be generated.
+packloadall
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
+
+" }}}
+" LaTex{{{
+
+function! RunLatexDispatch()
+  let b:tex_flavor = 'pdflatex'
+  compiler tex
+  "setlocal makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode
+  setlocal makeprg=latexmk\ \-pdf\ \-bibtex
+  setlocal errorformat=%f:%l:\ %m
+  exe 'silent Make! ' . expand('%:t')
+  if IsTreeOpen()
+    NERDTreeFocus
+    g:NERDTree.ForCurrentTab().getRoot().refresh()
+    wincmd p
+  endif
+endfunction
+
+" }}}
+" AutoCommands {{{
+
+" Vim Startup -----------------------------------------------------------------
+augroup VimEnterGroup
+  autocmd!
+  autocmd VimEnter * nested call RestoreSess()
+  autocmd VimEnter * NERDTree
+  autocmd VimEnter * wincmd p
+augroup END
+" For netrw use the following:
+" autocmd VimEnter * call ToggleVExplorer()
+
+" Vim Shutdown ----------------------------------------------------------------
+augroup VimLeavePreGroup
+  autocmd!
+  autocmd VimLeavePre * NERDTreeClose
+  autocmd VimLeavePre * call SaveSess()
+augroup END
+
+" Buffer Enter ----------------------------------------------------------------
+augroup BufEnterGroup
+  autocmd!
+  autocmd BufEnter * if IsBufTree()
+  \ | nnoremap <Leader>p <Nop>
+  \ | nnoremap <Leader>n <Nop>
+  \ | else
+  \ | call SyncTree()
+  \ | call StatusLine(mode())
+  \ | endif
+augroup END
+" \   | if (winnr("$") == 1)
+" \   | q
+" \   | endif
+
+" Buffer Leave ----------------------------------------------------------------
+" before leaving NERDTree or opening a file with NERDTree
+augroup BufLeaveGroup
+  autocmd!
+  autocmd BufLeave,WinLeave * if IsBufTree()
+  \ | nnoremap <silent> <Leader>p :bprevious<CR>
+  \ | nnoremap <silent> <Leader>n :bnext<CR>
+  \ | endif
+augroup END
+
+" Buffer Write ----------------------------------------------------------------
+" Execute LaTex Dispatch commands on write
+autocmd! BufWrite *.tex call RunLatexDispatch()
+
+" convert tabs to spaces before writing file
+"autocmd! BufWritePre * if &modifiable | set expandtab | retab! 2 | endif
+
+" convert spaces to tabs after writing file (to show guides again)
+"autocmd! BufWritePost * if &modifiable | set noexpandtab | retab! 2 | endif
+
+" Buffer Read -----------------------------------------------------------------
+" augroup BufReadGroup
+"   autocmd!
+"   " convert spaces to tabs when reading file
+"   autocmd BufReadPost * if &modifiable | set noexpandtab | retab! 2 | endif
+"   " after NERDTree opens a file
+"   autocmd BufReadPost * call SyncTree()
+"   autocmd BufReadPost * call StatusLine(mode())
+" augroup END
+
+" Insert Mode -----------------------------------------------------------------
+autocmd! InsertEnter * call StatusLine(v:insertmode)
+autocmd! InsertLeave * call StatusLine(mode())
 
 " }}}
 " Modeline {{{
