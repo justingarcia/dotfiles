@@ -10,3 +10,6 @@
 [submodule "nvim/plugged/vim-jsx"]
 	path = nvim/plugged/vim-jsx
 	url = https://github.com/mxw/vim-jsx
+[submodule "fonts/ctrld-font"]
+	path = fonts/ctrld-font
+	url = https://github.com/bjin/ctrld-font
