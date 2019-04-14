@@ -51,4 +51,6 @@ install tmux tmux
 #install nvim neovim
 
 # Install Fonts ---------------------------------------------------------------
+#make -C $DOTFILES_DIR/fonts/ctrld-font
+
 # Create Symlinks -------------------------------------------------------------
