@@ -13,11 +13,15 @@ touch $LOGFILE
 # .............................................................................
 # log() - Log a message
 # Usage:
-#		log <message-type> <message-string>
+#		log [message-type] <message-string>
 # .............................................................................
 log()
 {
-	printf "[%s] [%-5s] %s\n" "$TIME" "$1" "$2" >> $LOGFILE
+	if [ $# -eq 1 ]; then
+		printf "[%s] %s\n" "$TIME" "$1" >> $LOGFILE
+	else
+		printf "[%s] [%-5s] %s\n" "$TIME" "$1" "$2" >> $LOGFILE
+	fi
 }
 
 # .............................................................................
@@ -35,11 +39,16 @@ install()
 	fi
 }
 
+# Add and Update Repositories -------------------------------------------------
+#sudo add-apt-repository ppa:neovim-ppa/stable
+sudo apt-get update
+
 # Install Packages ------------------------------------------------------------
-log INFO "-- INSTALLING PACKAGES --"
+log "-- INSTALLING PACKAGES --"
 install zsh zsh
 install urxvt rxvt-unicode-256color
 install tmux tmux
+#install nvim neovim
 
 # Install Fonts ---------------------------------------------------------------
 # Create Symlinks -------------------------------------------------------------
