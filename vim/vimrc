@@ -1,12 +1,12 @@
 " General {{{
 
 let s:codewidth=80              " Maximum line length (+1)
-let synmaxcol=(s:codewidth*2)
+"let synmaxcol=(s:codewidth*2)
 set encoding=utf-8              " Encoding
 set timeoutlen=250
 set ttimeoutlen=0
 set ttyfast                     " Fast scrolling
-set synmaxcol=128               " For performance
+"set synmaxcol=128               " For performance
 "syntax sync minlines=256        " For performance
 "set regexpengine=1              " Use older, faster regex engine
 set regexpengine=0              " Switch between older and faster engines 
@@ -209,7 +209,8 @@ nnoremap <Leader>f vipgq
 
 " Buffers
 nnoremap <silent> <Leader>c :enew<CR>
-nnoremap <silent> <Leader>x :b#<bar>bw#<CR>
+"nnoremap <silent> <Leader>x :b#<bar>bw#<CR>
+nnoremap <silent> <Leader>x :bp<bar>sp<bar>bn<bar>bd<CR>
 nnoremap <silent> <Leader>p :bprevious<CR>
 nnoremap <silent> <Leader>n :bnext<CR>
 nnoremap <silent> <Leader>b :ls<CR>
@@ -298,7 +299,7 @@ function! Tabline()
             if bufmodified
                 let s .= (bufselected ? '%5*[+] ' : '%7*[+] ')
             else
-                let s .= repeat(' ', 3)
+                let s .= repeat(' ', 4)
             endif
         endif
     endfor
@@ -512,8 +513,11 @@ set directory^=$HOME/.vimswp//  " Swapfile directory (if enabled)
 " Plugins {{{
 
 " ALE -------------------------------------------------------------------------
-" Only run linters when files are saved
+" Only run linters and fixers manual (See AutoCommands)
 let g:ale_lint_on_text_changed = 'never'
+"let g:ale_lint_on_enter = 0
+"let g:ale_lint_on_save = 0
+let g:ale_fix_on_save = 1
 
 let g:ale_linters = {
 \ 'javascript': ['eslint']
@@ -523,7 +527,6 @@ let g:ale_fixers = {
 \ 'javascript': ['prettier', 'eslint']
 \ }
 
-let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
 
@@ -627,6 +630,7 @@ augroup BufEnterGroup
   autocmd BufEnter * if IsBufTree()
   \ | nnoremap <Leader>p <Nop>
   \ | nnoremap <Leader>n <Nop>
+  \ | nnoremap <Leader>x <Nop>
   \ | else
   \ | call SyncTree()
   \ | call StatusLine(mode())
@@ -643,28 +647,34 @@ augroup BufLeaveGroup
   autocmd BufLeave,WinLeave * if IsBufTree()
   \ | nnoremap <silent> <Leader>p :bprevious<CR>
   \ | nnoremap <silent> <Leader>n :bnext<CR>
+  \ | nnoremap <silent> <Leader>x :bp<bar>sp<bar>bn<bar>bd<CR>
   \ | endif
 augroup END
 
 " Buffer Write ----------------------------------------------------------------
 " Execute LaTex Dispatch commands on write
-autocmd! BufWrite *.tex call RunLatexDispatch()
+autocmd! BufWritePost *.tex call RunLatexDispatch()
 
 " convert tabs to spaces before writing file
-"autocmd! BufWritePre * if &modifiable | set expandtab | retab! 2 | endif
+augroup BufWritePreGroup
+  autocmd!
+  autocmd BufWritePre * if &modifiable | set expandtab | retab! 2 | endif
+  "autocmd BufWritePre * ALEFix | ALELint
+augroup END
 
 " convert spaces to tabs after writing file (to show guides again)
 "autocmd! BufWritePost * if &modifiable | set noexpandtab | retab! 2 | endif
+"autocmd! User ALEFixPost if &modifiable | set noexpandtab | retab! 2 | endif
 
 " Buffer Read -----------------------------------------------------------------
-" augroup BufReadGroup
-"   autocmd!
-"   " convert spaces to tabs when reading file
-"   autocmd BufReadPost * if &modifiable | set noexpandtab | retab! 2 | endif
-"   " after NERDTree opens a file
-"   autocmd BufReadPost * call SyncTree()
-"   autocmd BufReadPost * call StatusLine(mode())
-" augroup END
+augroup BufReadGroup
+  autocmd!
+  " convert spaces to tabs when reading file
+  "autocmd BufReadPost * if &modifiable | set noexpandtab | retab! 2 | endif
+  " after NERDTree opens a file
+  autocmd BufReadPost * call SyncTree()
+  autocmd BufReadPost * call StatusLine(mode())
+augroup END
 
 " Insert Mode -----------------------------------------------------------------
 autocmd! InsertEnter * call StatusLine(v:insertmode)

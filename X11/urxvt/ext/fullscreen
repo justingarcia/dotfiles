@@ -1,0 +1,28 @@
+#!perl
+sub on_user_command {
+    my ($self, $cmd) = @_;
+    if ($cmd eq "fullscreen:switch") {
+        my $dummy = `wmctrl -r :ACTIVE: -b toggle,fullscreen` ;
+    }
+}
+
+sub on_start {
+  my ($self) = @_;
+  # This is hacky, but there doesn't seem to be an event after 
+  # window creation
+  $self->{timer} = urxvt::timer->new->after(0.1)->cb(sub {
+      fullscreen $self
+    });
+	return;
+}
+
+sub fullscreen {
+  my ($self) = @_;
+  my $wid = $self->parent;
+  my $mov = `wmctrl -ir $wid -e 0,1980,-1,-1,-1` ;
+  my $err = `wmctrl -ir $wid -b add,fullscreen` ;
+  warn "Error maximizing: $err\n" unless $? == 0;
+  $self->{timer}->stop;
+  delete $self->{timer};
+	return;
+}

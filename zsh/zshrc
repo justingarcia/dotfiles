@@ -6,12 +6,14 @@ KEYTIMEOUT=1            # Time to wait for multi-char seq (0.01 seconds)
 autoload -U colors && colors
 
 # Terminal --------------------------------------------------------------------
-TERM=xterm-256color
+TERM=tmux-256color
 
 # Editor ----------------------------------------------------------------------
-export EDITOR="vim"
+export EDITOR="nvim"
 export USE_EDITOR=$EDITOR
 export VISUAL=$EDITOR
+alias vim='nvim'
+alias vi='nvim'
 
 # Window Title ----------------------------------------------------------------
 export DISABLE_AUTO_TITLE="true"
@@ -24,10 +26,14 @@ esac
 
 # Prompt ----------------------------------------------------------------------
 if [[ $UID -eq 0 ]]; then
-    local user_host="%{$terminfo[bold]$fg[red]%}%n@%m%{$reset_color%}"
+    #local user_host="%{$terminfo[bold]$fg[red]%}%n@%m%{$reset_color%}"
+		#local user_host=$'\e[0;91m%n@%m\e[0m'
+		local user_host='%{[38;05;09m%}%n@%m%{[0m%}'
     local user_symbol='#'
 else
-    local user_host="%{$terminfo[bold]$fg[green]%}%n@%m%{$reset_color%}"
+    #local user_host="%{$terminfo[bold]$fg[green]%}%n@%m%{$reset_color%}"
+		#local user_host=$'\e[0;92m%n@%m\e[0m'
+		local user_host='%{[38;05;10m%}%n@%m%{[0m%}'
     local user_symbol='$'
 fi
 
@@ -37,6 +43,10 @@ local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 PROMPT="┌─${user_host} [${current_dir}]
 └─%B${user_symbol}%b "
 RPS1="%B${return_code}%b"
+
+# Keybindings -----------------------------------------------------------------
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
 
 # ls --------------------------------------------------------------------------
 # color support
@@ -56,9 +66,28 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Functions -------------------------------------------------------------------
+# custom cd
+#c() {
+#  cd $1;
+#  ls -al;
+#}
+#alias cd="c"
+
+# Clang -----------------------------------------------------------------------
+#alias clang='clang-7'
+# Python ----------------------------------------------------------------------
+alias python='/usr/bin/python3.7'
+
 # NVM -------------------------------------------------------------------------
 #export NVM_DIR="/home/justin/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Blender ---------------------------------------------------------------------
 #export OCIO="/home/justin/filmic-blender/config.ocio"
+
+# Startup ---------------------------------------------------------------------
+# Launch into tmux session on startup
+if [ -z "$TMUX" ]; then
+	tmux attach -t default || tmux new -s default
+fi

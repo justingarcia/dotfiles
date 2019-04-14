@@ -10,7 +10,8 @@ set background=dark
 if &t_Co > 255
 
 " Color Definitions -----------------------------------------------------------
-let s:black  = [ '#121212', 233 ]
+"let s:black  = [ '#121212', 233 ]
+let s:black  = [ '#000000', 0   ]
 let s:grey4  = [ '#1c1c1c', 234 ]
 let s:grey3  = [ '#262626', 235 ]
 let s:grey2a = [ '#3a3a3a', 237 ]
@@ -31,7 +32,7 @@ let s:pureBlue  = [ '#0000ff', 21  ]
 
 " Normal Group ----------------------------------------------------------------
 exe 'hi Normal          ctermfg=' .s:white[1]    .' ctermbg=' .s:black[1]
-exe 'hi ShowMatches      ctermfg=' .s:white[1]    .' ctermbg=' .s:blue[1] . ' cterm=none'
+exe 'hi ShowMatches     ctermfg=' .s:white[1]    .' ctermbg=' .s:blue[1] . ' cterm=none'
 "exe Noise
 
 " Comment Group ---------------------------------------------------------------
@@ -74,11 +75,12 @@ exe 'hi Delimiter       ctermfg=' .s:white[1]
 "hi SpecialChar
 
 " Non Text Areas --------------------------------------------------------------
-"hi NonText              ctermfg=248     ctermbg=235
-hi ColorColumn                          ctermbg=234
-hi LineNr               ctermfg=248     ctermbg=233
+exe 'hi NonText         ctermfg=' .s:grey1[1]  .' ctermbg=' .s:black[1]
+exe 'hi ColorColumn                               ctermbg=' .s:grey4[1]
+exe 'hi LineNr          ctermfg=' .s:grey1[1]  .' ctermbg=' .s:black[1]
+"hi LineNr               ctermfg=248     ctermbg=233
 exe 'hi VertSplit       ctermfg=' .s:grey4[1]
-hi EndOfBuffer          ctermfg=233     ctermbg=233
+exe 'hi EndOfBuffer     ctermfg=' .s:black[1]  .' ctermbg=' .s:black[1]
 exe 'hi Folded          ctermfg=' .s:orange[1] .' ctermbg=' .s:black[1]
 exe 'hi SignColumn      ctermbg=' .s:black[1]
 exe 'hi ALEErrorSign    ctermfg=' .s:white[1]  .' ctermbg=' .s:pureRed[1]
@@ -104,11 +106,11 @@ hi PmenuSel             ctermfg=39      ctermbg=236
 exe 'hi StatusLine      ctermfg=' .s:grey4[1]  .' ctermbg=' .s:white[1]
 exe 'hi StatusLineNC    ctermfg=' .s:grey4[1]  .' ctermbg=' .s:white[1]
 
-exe 'hi User1 ctermfg=' .s:white[1]    .' ctermbg=' .s:grey4[1] .' cterm=bold'
-exe 'hi User2 ctermfg=' .s:black[1]    .' ctermbg=' .s:blue[1]  .' cterm=bold'
-exe 'hi User3 ctermfg=' .s:black[1]    .' ctermbg=' .s:green[1] .' cterm=bold'
-exe 'hi User4 ctermfg=' .s:black[1]    .' ctermbg=' .s:orange[1].' cterm=bold'
-exe 'hi User5 ctermfg=' .s:red[1]      .' ctermbg=' .s:black[1] .' cterm=bold'
+exe 'hi User1 ctermfg=' .s:white[1]    .' ctermbg=' .s:grey4[1] .' cterm=none'
+exe 'hi User2 ctermfg=' .s:black[1]    .' ctermbg=' .s:blue[1]  .' cterm=none'
+exe 'hi User3 ctermfg=' .s:black[1]    .' ctermbg=' .s:green[1] .' cterm=none'
+exe 'hi User4 ctermfg=' .s:black[1]    .' ctermbg=' .s:orange[1].' cterm=none'
+exe 'hi User5 ctermfg=' .s:red[1]      .' ctermbg=' .s:black[1] .' cterm=none'
 exe 'hi User6 ctermfg=' .s:grey1[1]    .' ctermbg=' .s:grey4[1] .' cterm=none'
 exe 'hi User7 ctermfg=' .s:red[1]    .' ctermbg='   .s:grey4[1] .' cterm=none'
 
