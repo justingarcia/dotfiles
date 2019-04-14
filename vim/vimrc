@@ -513,38 +513,38 @@ set directory^=$HOME/.vimswp//  " Swapfile directory (if enabled)
 " Plugins {{{
 
 " ALE -------------------------------------------------------------------------
-" Only run linters and fixers manual (See AutoCommands)
-let g:ale_lint_on_text_changed = 'never'
-"let g:ale_lint_on_enter = 0
-"let g:ale_lint_on_save = 0
-let g:ale_fix_on_save = 1
-
-let g:ale_linters = {
-\ 'javascript': ['eslint']
-\ }
-
-let g:ale_fixers = {
-\ 'javascript': ['prettier', 'eslint']
-\ }
-
-let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+"" Only run linters and fixers manual (See AutoCommands)
+"let g:ale_lint_on_text_changed = 'never'
+""let g:ale_lint_on_enter = 0
+""let g:ale_lint_on_save = 0
+"let g:ale_fix_on_save = 1
+"
+"let g:ale_linters = {
+"\ 'javascript': ['eslint']
+"\ }
+"
+"let g:ale_fixers = {
+"\ 'javascript': ['prettier', 'eslint']
+"\ }
+"
+"let g:ale_javascript_prettier_use_local_config = 1
+"let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
 
 " Emmet -----------------------------------------------------------------------
-"imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+""imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
-" <C-,> remapped to <F7> in Xresources
-let g:user_emmet_leader_key='<F7>'
+"" <C-,> remapped to <F7> in Xresources
+"let g:user_emmet_leader_key='<F7>'
 
-" So that 'class' is replaced by 'className' in JSX/React
-let g:user_emmet_settings = {
-\  'javascript' : {
-\      'extends' : 'jsx',
-\  },
-\  'javascript.jsx' : {
-\      'extends' : 'jsx',
-\  },
-\}
+"" So that 'class' is replaced by 'className' in JSX/React
+"let g:user_emmet_settings = {
+"\  'javascript' : {
+"\      'extends' : 'jsx',
+"\  },
+"\  'javascript.jsx' : {
+"\      'extends' : 'jsx',
+"\  },
+"\}
 
 " Ultisnips -------------------------------------------------------------------
 " key bindings for UltiSnipsExpandTrigger
@@ -557,25 +557,25 @@ let g:user_emmet_settings = {
 "let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/ultisnips']
 
 " NERDTree --------------------------------------------------------------------
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeShowHidden = 1
-let NERDTreeStatusline = ' '
+"let NERDTreeMinimalUI = 1
+"let NERDTreeDirArrows = 1
+"let NERDTreeShowHidden = 1
+"let NERDTreeStatusline = ' '
 
 " Nerd Commenter --------------------------------------------------------------
-" Turn off default bindings
-let g:NERDCreateDefaultMappings = 0
-" Map comment toggle to <C-/>
-nmap <C-_> <plug>NERDCommenterToggle
-vmap <C-_> <plug>NERDCommenterToggle
-" Add spaces after comment delimeters by default
-let g:NERDSpaceDelims = 1
-" Align line-wise comment delimeters flush left instead of following code
-" indetation
-let g:NERDDefaultAlign = 'left'
+"" Turn off default bindings
+"let g:NERDCreateDefaultMappings = 0
+"" Map comment toggle to <C-/>
+"nmap <C-_> <plug>NERDCommenterToggle
+"vmap <C-_> <plug>NERDCommenterToggle
+"" Add spaces after comment delimeters by default
+"let g:NERDSpaceDelims = 1
+"" Align line-wise comment delimeters flush left instead of following code
+"" indetation
+"let g:NERDDefaultAlign = 'left'
 
 " Polyglot --------------------------------------------------------------------
-let g:polyglot_disabled = ['latex']
+"let g:polyglot_disabled = ['latex']
 
 " Help Files ------------------------------------------------------------------
 " Put these lines at the very end of your vimrc file.
