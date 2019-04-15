@@ -6,8 +6,7 @@ sudo apt-get upgrade
 ```
 2. Install Developer Tools  
 ```bash
-sudo apt-get build-essential
-sudo apt-get git
+sudo apt-get install build-essential git
 ```
 3. Clone this Repository  
 ```bash
