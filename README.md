@@ -14,8 +14,8 @@ Installation (Ubuntu 16.04+)
    cd ~
    git clone --recurse-submodules -j8 https://github.com/justingarcia/dotfiles
    ```
-	 *Note* `--recurse-submodules` requires version 2.13 of Git or later. 
-	 For older versions (above 1.6.5), use `--recursive`  
+	 *Note:* `--recurse-submodules` requires version 2.13 of Git or later. 
+	 For older versions (above 1.6.5), use `--recursive` instead.  
 	 `-j8` is an optional optimization that requires version 2.8 of Git.
 4. Run the included install script:
    ```bash

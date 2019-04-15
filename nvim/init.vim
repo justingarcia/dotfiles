@@ -1,12 +1,12 @@
 " Plugins =====================================================================
-" Auto-install vim-plug if not already installed ------------------------------
+" Auto-install vim-plug if not already installed
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Plugin Directory ------------------------------------------------------------
+" Plugin directory
 call plug#begin('~/.config/nvim/plugged')
 
 " Syntax Highlighting ---------------------------------------------------------
@@ -22,29 +22,41 @@ Plug 'jiangmiao/auto-pairs'
 "Plug 'w0rp/ale'
 "Plug 'mattn/emmet-vim'
 
-" Initialize Plugins ----------------------------------------------------------
+" Initialize plugins
 call plug#end()
 
 " Settings ====================================================================
 " General ---------------------------------------------------------------------
-set textwidth=79								" Maximum line length in columns
-set timeoutlen=250							" Timeout length for key sequences
-set ttimeoutlen=0								" Timeout length for keycodes
-set noswapfile									" No backup files
-set hidden											" Allow hidden buffers
+" Maximum line length in columns
+set textwidth=79								
+" Timeout length for key sequences
+set timeoutlen=250							
+" Timeout length for keycodes
+set ttimeoutlen=0								
+" No backup files
+set noswapfile									
+" Allow hidden buffers
+set hidden											
 
 " UI --------------------------------------------------------------------------
-syntax enable                   " Enable syntax processing
-colorscheme chinsei             " vim/colors/chinsei.vim
-"colorscheme okashi             " vim/colors/okashi.vim
-set number                      " Show line numbers
-set guicursor=a:blinkon1				" Cursor settings
-let &colorcolumn=&textwidth+1		" Vertical line indicating max line length
+" Enable syntax processing
+syntax enable                   
+" vim/colors/chinsei.vim
+colorscheme chinsei             
+" vim/colors/okashi.vim
+"colorscheme okashi             
+" Show line numbers
+set number                      
+" Cursor settings
+set guicursor=a:blinkon1				
+" Vertical line indicating max line length
+let &colorcolumn=&textwidth+1		
 " Fill characters
 set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:-
 
 " Formatting ------------------------------------------------------------------
-filetype plugin indent on       " Filetype dependent indenting
+" Filetype dependent indenting
+filetype plugin indent on       
 " use 2 spaces for tabs
 set tabstop=2 softtabstop=2 shiftwidth=2
 " Disable auto comment insertion
@@ -79,8 +91,3 @@ inoremap <silent> <F8> <Esc>:Fill =<CR>A
 inoremap <silent> <F7> <Esc>:Fill _<CR>A
 inoremap <silent> <F6> <Esc>:Fill -<CR>A
 inoremap <silent> <F5> <Esc>:Fill .<CR>A
-
-" vimrc =======================================================================
-"set runtimepath^=/.vim runtimepath+=~/.vim/after
-"let &packpath = &runtimepath
-"source ~/.vimrc
