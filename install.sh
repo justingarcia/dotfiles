@@ -25,7 +25,7 @@ log()
 }
 
 # .............................................................................
-# install() - Use apt-get to install a program
+# install() - Use apt-get to install a package, log results
 # Usage:
 #		install <command-name> <package-name>
 # .............................................................................
@@ -40,7 +40,8 @@ install()
 }
 
 # Add and Update Repositories -------------------------------------------------
-#sudo add-apt-repository ppa:neovim-ppa/stable
+log "-- UPDATING REPOSITORIES --"
+sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt-get update
 
 # Install Packages ------------------------------------------------------------
@@ -48,9 +49,35 @@ log "-- INSTALLING PACKAGES --"
 install zsh zsh
 install urxvt rxvt-unicode-256color
 install tmux tmux
-#install nvim neovim
+install nvim neovim
 
 # Install Fonts ---------------------------------------------------------------
+log "-- INSTALLING FONTS --"
 #make -C $DOTFILES_DIR/fonts/ctrld-font
 
 # Create Symlinks -------------------------------------------------------------
+log "-- CREATING SYMLINKS --"
+# Remove preexisting symlinks and dotfiles ....................................
+unlink ~/.zshrc
+unlink ~/.urxvt
+unlink ~/.tmux
+unlink ~/.tmux.conf
+unlink ~/.config/nvim
+# Remove preexisting configuration folders ....................................
+sudo rm -rf ~/.urxvt > /dev/null 2>&1
+sudo rm -rf ~/.tmux > /dev/null 2>&1
+sudo rm -rf ~/.config/nvim > /dev/null 2>&1
+# Create new symlinks .........................................................
+ln -sf $DOTFILES_DIR/zsh/zshrc ~/.zshrc
+ln -sf $DOTFILES_DIR/X11/urxvt ~/.urxvt
+ln -sf $DOTFILES_DIR/tmux ~/.tmux
+ln -sf $DOTFILES_DIR/tmux/tmux.conf ~/.tmux.conf
+ln -sf $DOTFILES_DIR/nvim ~/.config/nvim
+
+# Set Defaults ----------------------------------------------------------------
+sudo chsh -s `which zsh`
+sudo update-alternatives --config x-terminal-emulator
+
+# Log Summary -----------------------------------------------------------------
+log "-- SUMMARY --"
+cat $LOGFILE
