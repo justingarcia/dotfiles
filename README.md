@@ -23,7 +23,7 @@ Installation (Ubuntu 16.04+)
    chmod +x install.sh
    ./install.sh
    ```
-5. Load neovim init.vim to auto-install vim-plug:
+5. Load `~/dotfiles/nvim/init.vim` to auto-install vim-plug:
 	 ```bash
    vim nvim/init.vim
 	 ```
