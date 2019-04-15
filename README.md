@@ -1,20 +1,23 @@
 Installation (Ubuntu 16.04+)
 -------------------------------------------------------------------------------
-1. Update System
+1. Update the system:
    ```bash
    sudo apt-get update
    sudo apt-get upgrade
    ```
-2. Install Developer Tools
+2. Install developer tools (make is needed to install fonts):
    ```bash
    sudo apt-get install build-essential git
    ```
-3. Clone Dotfiles
+3. Clone this dotfiles repository, including submodules:
    ```bash
    cd ~
-   git clone https://github.com/justingarcia/dotfiles
+   git clone --recurse-submodules -j8 https://github.com/justingarcia/dotfiles
    ```
-4. Run Install Script
+	 *Note* `--recurse-submodules` requires version 2.13 of Git or later
+	 For older versions (above 1.6.5), use `--recursive`
+	 `-j8` is an optional optimization that requires version 2.8 of Git
+4. Run the included install script:
    ```bash
    cd dotfiles
    chmod +x install.sh

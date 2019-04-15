@@ -8,7 +8,8 @@ KEYTIMEOUT=1
 autoload -U colors && colors
 
 # Terminal --------------------------------------------------------------------
-TERM=tmux-256color
+export TERM=xterm-256color
+[[ -n $TMUX ]] && export TERM="tmux-256color"
 
 # Editor ----------------------------------------------------------------------
 export EDITOR="nvim"

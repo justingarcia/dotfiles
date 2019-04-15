@@ -1,16 +1,27 @@
 " Plugins =====================================================================
+" Auto-install vim-plug if not already installed ------------------------------
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Plugin Directory ------------------------------------------------------------
 call plug#begin('~/.config/nvim/plugged')
+
 " Syntax Highlighting ---------------------------------------------------------
 Plug 'bfrg/vim-cpp-modern'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 "Plug 'maxbane/vim-asm_ca65'
+
 " Editing ---------------------------------------------------------------------
 Plug 'jiangmiao/auto-pairs'
+
 " Linting ---------------------------------------------------------------------
 "Plug 'w0rp/ale'
 "Plug 'mattn/emmet-vim'
+
 " Initialize Plugins ----------------------------------------------------------
 call plug#end()
 
