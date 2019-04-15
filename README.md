@@ -1,5 +1,5 @@
-### Installation Instructions
-1. Update Repositories  
+### Ubuntu Installation
+1. Update System  
 ```bash
 sudo apt-get update
 sudo apt-get upgrade
@@ -8,7 +8,7 @@ sudo apt-get upgrade
 ```bash
 sudo apt-get install build-essential git
 ```
-3. Clone this Repository  
+3. Clone Dotfiles  
 ```bash
 cd ~
 git clone https://github.com/justingarcia/dotfiles
