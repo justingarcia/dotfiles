@@ -1,6 +1,8 @@
 # General ---------------------------------------------------------------------
-setopt RM_STAR_WAIT     # Sanity check for 'rm *'
-KEYTIMEOUT=1            # Time to wait for multi-char seq (0.01 seconds)
+# Sanity check for 'rm *'
+setopt RM_STAR_WAIT
+# Time to wait for multi-char seq (0.01 sec)
+KEYTIMEOUT=1
 
 # Colors ----------------------------------------------------------------------
 autoload -U colors && colors
@@ -16,33 +18,28 @@ alias vim='nvim'
 alias vi='nvim'
 
 # Window Title ----------------------------------------------------------------
+# Set title manually
 export DISABLE_AUTO_TITLE="true"
+# Working directory as window title
 echo -ne "\033];$PWD\007"
-case $TERM in
-    (*xterm* | rxvt)
-        chpwd () {print -Pn "\e]0;$PWD\a"}
-    ;;
-esac
 
 # Prompt ----------------------------------------------------------------------
 if [[ $UID -eq 0 ]]; then
-    #local user_host="%{$terminfo[bold]$fg[red]%}%n@%m%{$reset_color%}"
-		#local user_host=$'\e[0;91m%n@%m\e[0m'
-		local user_host='%{[38;05;09m%}%n@%m%{[0m%}'
-    local user_symbol='#'
+	# '<username>@<system>' in red (root)
+	local user_host='%{[38;05;09m%}%n@%m%{[0m%}'
+	local user_symbol='#'
 else
-    #local user_host="%{$terminfo[bold]$fg[green]%}%n@%m%{$reset_color%}"
-		#local user_host=$'\e[0;92m%n@%m\e[0m'
-		local user_host='%{[38;05;10m%}%n@%m%{[0m%}'
-    local user_symbol='$'
+	# '<username>@<system>' in green
+	local user_host='%{[38;05;10m%}%n@%m%{[0m%}'
+	local user_symbol='$'
 fi
 
 local current_dir="%{$terminfo[bold]$fg[blue]%}%~%{$reset_color%}"
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
-PROMPT="┌─${user_host} [${current_dir}]
+PROMPT="┌─${user_host} [${current_dir}] %B${return_code}%b
 └─%B${user_symbol}%b "
-RPS1="%B${return_code}%b"
+#RPS1="%B${return_code}%b"
 
 # Keybindings -----------------------------------------------------------------
 bindkey "^P" up-line-or-search
@@ -51,31 +48,20 @@ bindkey "^N" down-line-or-search
 # ls --------------------------------------------------------------------------
 # color support
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto --group-directories-first'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+	test -r ~/.dircolors &&
+		eval "$(dircolors -b ~/.dircolors)" ||
+		eval "$(dircolors -b)"
+	alias ls='ls --color=auto --group-directories-first'
+	alias dir='dir --color=auto'
+	alias vdir='vdir --color=auto'
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
 fi
-
-# aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Functions -------------------------------------------------------------------
-# custom cd
-#c() {
-#  cd $1;
-#  ls -al;
-#}
-#alias cd="c"
 
 # Clang -----------------------------------------------------------------------
 #alias clang='clang-7'
+
 # Python ----------------------------------------------------------------------
 alias python='/usr/bin/python3.7'
 
