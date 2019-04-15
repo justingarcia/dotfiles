@@ -55,8 +55,8 @@ let &colorcolumn=&textwidth+1
 set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:-
 
 " Formatting ------------------------------------------------------------------
-" Filetype dependent indenting
-filetype plugin indent on       
+" Filetype dependent indenting (commented out--set by vim-plug)
+"filetype plugin indent on       
 " use 2 spaces for tabs
 set tabstop=2 softtabstop=2 shiftwidth=2
 " Disable auto comment insertion
