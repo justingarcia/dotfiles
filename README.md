@@ -1,4 +1,5 @@
-### Installation (Ubuntu 16.04+)
+Installation (Ubuntu 16.04+)
+-------------------------------------------------------------------------------
 1. Update System
    ```bash
    sudo apt-get update
