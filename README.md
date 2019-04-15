@@ -1,3 +1,10 @@
+Environment
+-------------------------------------------------------------------------------
+* zsh
+* UXTerm
+* tmux
+* Neovim
+
 Installation (Ubuntu 16.04+)
 -------------------------------------------------------------------------------
 1. Update the system:
@@ -5,7 +12,7 @@ Installation (Ubuntu 16.04+)
    sudo apt-get update
    sudo apt-get upgrade
    ```
-2. Install developer tools (make is needed to install fonts):
+2. Install Git and developer tools (make is needed to install fonts):
    ```bash
    sudo apt-get install build-essential git
    ```
@@ -23,7 +30,7 @@ Installation (Ubuntu 16.04+)
    chmod +x install.sh
    ./install.sh
    ```
-5. Load `~/dotfiles/nvim/init.vim` to auto-install vim-plug:
+5. Load `~/dotfiles/nvim/init.vim` to auto-install #vim-plug#:
 	 ```bash
    vim nvim/init.vim
 	 ```
