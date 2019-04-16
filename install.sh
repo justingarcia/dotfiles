@@ -47,29 +47,34 @@ sudo apt-get update
 # Install Packages ------------------------------------------------------------
 log "-- INSTALLING PACKAGES --"
 install zsh zsh
-install urxvt rxvt-unicode-256color
+install uxterm xterm
+#install urxvt rxvt-unicode-256color
 install tmux tmux
 install nvim neovim
 
 # Install Fonts ---------------------------------------------------------------
 log "-- INSTALLING FONTS --"
-#make -C $DOTFILES_DIR/fonts/ctrld-font
+make -C $DOTFILES_DIR/fonts/ctrld-font
 
 # Create Symlinks -------------------------------------------------------------
 log "-- CREATING SYMLINKS --"
 # Remove preexisting symlinks and dotfiles ....................................
 unlink ~/.zshrc
-unlink ~/.urxvt
+unlink ~/.Xresources
+unlink ~/.xsessionrc
+#unlink ~/.urxvt
 unlink ~/.tmux
 unlink ~/.tmux.conf
 unlink ~/.config/nvim
 # Remove preexisting configuration folders ....................................
-sudo rm -rf ~/.urxvt > /dev/null 2>&1
+#sudo rm -rf ~/.urxvt > /dev/null 2>&1
 sudo rm -rf ~/.tmux > /dev/null 2>&1
 sudo rm -rf ~/.config/nvim > /dev/null 2>&1
 # Create new symlinks .........................................................
 ln -sf $DOTFILES_DIR/zsh/zshrc ~/.zshrc
-ln -sf $DOTFILES_DIR/X11/urxvt ~/.urxvt
+ln -sf $DOTFILES_DIR/X11/Xresources ~/.Xresources
+ln -sf $DOTFILES_DIR/X11/xsessionrc ~/.xsessionrc
+#ln -sf $DOTFILES_DIR/X11/urxvt ~/.urxvt
 ln -sf $DOTFILES_DIR/tmux ~/.tmux
 ln -sf $DOTFILES_DIR/tmux/tmux.conf ~/.tmux.conf
 ln -sf $DOTFILES_DIR/nvim ~/.config/nvim
