@@ -1,5 +1,6 @@
 vim/bundle
 vim/autoload
 vim/.netrwhist
-vim/sessions/*
-tmux/resurrect/*
+vim/sessions/
+nvim/plugged/
+tmux/resurrect/
