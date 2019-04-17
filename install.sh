@@ -83,7 +83,7 @@ ln -sf $DOTFILES_DIR/nvim ~/.config/nvim
 
 # Set Defaults ----------------------------------------------------------------
 chsh -s `which zsh`
-update-alternatives --config x-terminal-emulator
+sudo update-alternatives --config x-terminal-emulator
 
 # Log Summary -----------------------------------------------------------------
 log "-- SUMMARY --"
