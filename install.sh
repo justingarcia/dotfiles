@@ -54,7 +54,7 @@ install nvim neovim
 
 # Install Fonts ---------------------------------------------------------------
 log "-- INSTALLING FONTS --"
-make -C $DOTFILES_DIR/fonts/ctrld-font
+sudo make -C $DOTFILES_DIR/fonts/ctrld-font
 
 # Create Symlinks -------------------------------------------------------------
 log "-- CREATING SYMLINKS --"
@@ -75,15 +75,15 @@ sudo rm -rf ~/.config/nvim > /dev/null 2>&1
 ln -sf $DOTFILES_DIR/zsh/zshrc ~/.zshrc
 ln -sf $DOTFILES_DIR/X11/Xresources ~/.Xresources
 #ln -sf $DOTFILES_DIR/X11/xsessionrc ~/.xsessionrc
-ln -sf $DOTFILES_DIR/X11/xinitrc ~/.xinitrc
+#ln -sf $DOTFILES_DIR/X11/xinitrc ~/.xinitrc
 #ln -sf $DOTFILES_DIR/X11/urxvt ~/.urxvt
 ln -sf $DOTFILES_DIR/tmux ~/.tmux
 ln -sf $DOTFILES_DIR/tmux/tmux.conf ~/.tmux.conf
 ln -sf $DOTFILES_DIR/nvim ~/.config/nvim
 
 # Set Defaults ----------------------------------------------------------------
-sudo chsh -s `which zsh`
-sudo update-alternatives --config x-terminal-emulator
+chsh -s `which zsh`
+update-alternatives --config x-terminal-emulator
 
 # Log Summary -----------------------------------------------------------------
 log "-- SUMMARY --"
