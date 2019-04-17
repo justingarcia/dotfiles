@@ -74,7 +74,7 @@ sudo rm -rf ~/.config/nvim > /dev/null 2>&1
 # Create new symlinks .........................................................
 ln -sf $DOTFILES_DIR/zsh/zshrc ~/.zshrc
 ln -sf $DOTFILES_DIR/X11/Xresources ~/.Xresources
-#ln -sf $DOTFILES_DIR/X11/xsessionrc ~/.xsessionrc
+ln -sf $DOTFILES_DIR/X11/xsessionrc ~/.xsessionrc
 ln -sf $DOTFILES_DIR/X11/xinitrc ~/.xinitrc
 #ln -sf $DOTFILES_DIR/X11/urxvt ~/.urxvt
 ln -sf $DOTFILES_DIR/tmux ~/.tmux
