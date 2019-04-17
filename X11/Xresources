@@ -22,7 +22,7 @@ xterm*font: -ctrld-fixed-medium-r-normal--13-80-96-96-c-80-iso10646-1
 *.boldMode:									false
 *.alwaysBoldMode:						false
 *.allowBoldFonts:						false
-*.boldFont:
+!*.boldFont:
 
 ! COLORSCHEME =================================================================
 ! x0_Black #000000	rgb(0,0,0)	hsl(0,0%,0%)
