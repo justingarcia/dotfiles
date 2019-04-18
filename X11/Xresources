@@ -1,8 +1,7 @@
 ! GENERAL =====================================================================
 *.utf8:											1
 *.saveLines:								65535
-!XTerm*termName: xterm-256color
-!UXTerm*termName: xterm-256color
+*.termName: xterm-256color
 
 ! WINDOW ======================================================================
 ! Default window geometry
@@ -75,6 +74,8 @@ xterm*font: -ctrld-fixed-medium-r-normal--13-80-96-96-c-80-iso10646-1
 *.color15:									#ffffd7
 
 ! URXVT =======================================================================
+! TERM variable
+URxvt.termName: rxvt-unicode-256color
 ! Keybindings
 ! Map <C-Return> to <ESC>
 URxvt.keysym.C-Return:          \033

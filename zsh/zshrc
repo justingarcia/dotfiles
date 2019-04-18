@@ -10,7 +10,7 @@ autoload -U colors && colors
 # Terminal --------------------------------------------------------------------
 #export TERM=xterm-256color
 #[[ -n $TMUX ]] && export TERM="tmux-256color"
-export TERM=tmux-256color
+#export TERM=tmux-256color
 
 # Editor ----------------------------------------------------------------------
 export EDITOR="nvim"
@@ -76,6 +76,6 @@ alias python='/usr/bin/python3.7'
 
 # Startup ---------------------------------------------------------------------
 # Launch into tmux session on startup
-if [ -z "$TMUX" ]; then
-	tmux attach -t default || tmux new -s default
-fi
+#if [ -z "$TMUX" ]; then
+#	tmux attach -t default || tmux new -s default
+#fi
