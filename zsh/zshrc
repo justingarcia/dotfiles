@@ -7,11 +7,6 @@ KEYTIMEOUT=1
 # Colors ----------------------------------------------------------------------
 autoload -U colors && colors
 
-# Terminal --------------------------------------------------------------------
-#export TERM=xterm-256color
-#[[ -n $TMUX ]] && export TERM="tmux-256color"
-#export TERM=tmux-256color
-
 # Editor ----------------------------------------------------------------------
 export EDITOR="nvim"
 export USE_EDITOR=$EDITOR
@@ -72,10 +67,10 @@ alias python='/usr/bin/python3.7'
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Blender ---------------------------------------------------------------------
-#export OCIO="/home/justin/filmic-blender/config.ocio"
+#export OCIO="$HOME/filmic-blender/config.ocio"
 
 # Startup ---------------------------------------------------------------------
 # Launch into tmux session on startup
-#if [ -z "$TMUX" ]; then
-#	tmux attach -t default || tmux new -s default
-#fi
+if [ -z "$TMUX" ]; then
+	tmux attach -t default || tmux new -s default
+fi
