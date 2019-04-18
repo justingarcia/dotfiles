@@ -2,3 +2,4 @@
 
 [[ -f $HOME/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 xset +fp $HOME/dotfiles/fonts/ctrld-font/
+xset fp rehash

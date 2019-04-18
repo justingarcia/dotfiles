@@ -5,8 +5,8 @@
 
 DATE=$(date +"%F")
 TIME=$(date +"%F %T %Z") 
-DOTFILES_DIR=~/dotfiles
-LOGFILE=~/dotfiles-install-$DATE.log
+DOTFILES_DIR=$HOME/dotfiles
+LOGFILE=$HOME/dotfiles-install-$DATE.log
 touch $LOGFILE
 
 # Functions -------------------------------------------------------------------
@@ -57,6 +57,8 @@ log "-- INSTALLING FONTS --"
 sudo unlink /etc/fonts/conf.d/70-no-bitmaps.conf
 sudo ln -sf /etc/fonts/conf.avail/70-yes-bitmaps.conf /etc/fonts/conf.d/70-yes-bitmaps.conf
 sudo dpkg-reconfigure fontconfig
+xset +fp $DOTFILES_DIR/fonts/ctrld-font/
+xset fp rehash
 #sudo make -C $DOTFILES_DIR/fonts/ctrld-font
 
 # Create Symlinks -------------------------------------------------------------
@@ -77,8 +79,8 @@ sudo rm -rf ~/.config/nvim > /dev/null 2>&1
 # Create new symlinks .........................................................
 ln -s $DOTFILES_DIR/zsh/zshrc ~/.zshrc
 ln -s $DOTFILES_DIR/X11/Xresources ~/.Xresources
-ln -s $DOTFILES_DIR/X11/xsessionrc ~/.xsessionrc
 ln -s $DOTFILES_DIR/X11/xinitrc ~/.xinitrc
+ln -s $DOTFILES_DIR/X11/xinitrc ~/.xsessionrc
 #ln -s $DOTFILES_DIR/X11/urxvt ~/.urxvt
 ln -s $DOTFILES_DIR/tmux ~/.tmux
 ln -s $DOTFILES_DIR/tmux/tmux.conf ~/.tmux.conf
