@@ -51,6 +51,7 @@ install uxterm xterm
 #install urxvt rxvt-unicode-256color
 install tmux tmux
 install nvim neovim
+sudo apt-get -y install ncurses-base
 sudo apt-get -y install ncurses-term
 
 # Install Fonts ---------------------------------------------------------------
