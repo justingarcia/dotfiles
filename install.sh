@@ -54,6 +54,9 @@ install nvim neovim
 
 # Install Fonts ---------------------------------------------------------------
 log "-- INSTALLING FONTS --"
+sudo unlink /etc/fonts/conf.d/70-no-bitmaps.conf
+sudo ln -s /etc/fonts/conf.avail/70-yes-bitmaps.conf /etc/fonts/conf.d/70-yes-bitmaps.conf
+sudo dpkg-reconfigure fontconfig
 sudo make -C $DOTFILES_DIR/fonts/ctrld-font
 
 # Create Symlinks -------------------------------------------------------------
@@ -72,14 +75,14 @@ unlink ~/.config/nvim
 sudo rm -rf ~/.tmux > /dev/null 2>&1
 sudo rm -rf ~/.config/nvim > /dev/null 2>&1
 # Create new symlinks .........................................................
-ln -sf $DOTFILES_DIR/zsh/zshrc ~/.zshrc
-ln -sf $DOTFILES_DIR/X11/Xresources ~/.Xresources
-ln -sf $DOTFILES_DIR/X11/xsessionrc ~/.xsessionrc
-ln -sf $DOTFILES_DIR/X11/xinitrc ~/.xinitrc
-#ln -sf $DOTFILES_DIR/X11/urxvt ~/.urxvt
-ln -sf $DOTFILES_DIR/tmux ~/.tmux
-ln -sf $DOTFILES_DIR/tmux/tmux.conf ~/.tmux.conf
-ln -sf $DOTFILES_DIR/nvim ~/.config/nvim
+ln -s $DOTFILES_DIR/zsh/zshrc ~/.zshrc
+ln -s $DOTFILES_DIR/X11/Xresources ~/.Xresources
+ln -s $DOTFILES_DIR/X11/xsessionrc ~/.xsessionrc
+ln -s $DOTFILES_DIR/X11/xinitrc ~/.xinitrc
+#ln -s $DOTFILES_DIR/X11/urxvt ~/.urxvt
+ln -s $DOTFILES_DIR/tmux ~/.tmux
+ln -s $DOTFILES_DIR/tmux/tmux.conf ~/.tmux.conf
+ln -s $DOTFILES_DIR/nvim ~/.config/nvim
 
 # Set Defaults ----------------------------------------------------------------
 xrdb -merge ~/.Xresources
