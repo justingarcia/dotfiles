@@ -9,7 +9,7 @@ autoload -U colors && colors
 
 # Terminal --------------------------------------------------------------------
 export TERM=xterm-256color
-[[ -n $TMUX ]] && export TERM="screen-256color"
+#[[ -n $TMUX ]] && export TERM="screen-256color"
 
 # Editor ----------------------------------------------------------------------
 export EDITOR="nvim"
