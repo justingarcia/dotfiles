@@ -51,6 +51,7 @@ install uxterm xterm
 #install urxvt rxvt-unicode-256color
 install tmux tmux
 install nvim neovim
+install curl curl
 sudo apt-get -y install ncurses-base
 sudo apt-get -y install ncurses-term
 
