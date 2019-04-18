@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/justin/dotfiles/X11'
-let g:netrw_dirhist_2='/home/justin/dotfiles/bitmap-fonts'
-let g:netrw_dirhist_3='/home/justin/dotfiles'

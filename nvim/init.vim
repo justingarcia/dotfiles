@@ -35,6 +35,8 @@ set timeoutlen=250
 set ttimeoutlen=0								
 " No backup files
 set noswapfile									
+" No .netrwhist
+let g:netrw_dirhistmax=0 
 " Allow hidden buffers
 set hidden											
 
