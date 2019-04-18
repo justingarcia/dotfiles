@@ -16,7 +16,7 @@ Installation (Ubuntu 16.04+)
    ```bash
    sudo apt-get install build-essential git
    ```
-3. Clone this dotfiles repository, including submodules:
+3. Clone this dotfiles repository:
    ```bash
    cd ~
    git clone https://github.com/justingarcia/dotfiles
