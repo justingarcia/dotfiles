@@ -89,7 +89,7 @@ ln -s $DOTFILES_DIR/tmux/tmux.conf ~/.tmux.conf
 ln -s $DOTFILES_DIR/nvim ~/.config/nvim
 
 # Set Defaults ----------------------------------------------------------------
-xrdb -merge ~/.Xresources
+xrdb -load ~/.Xresources
 chsh -s `which zsh`
 sudo update-alternatives --config x-terminal-emulator
 
