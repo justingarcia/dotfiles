@@ -1,8 +1,8 @@
 ! GENERAL =====================================================================
 *.utf8:											1
 *.saveLines:								65535
-XTerm*termName: xterm-256color
-UXTerm*termName: xterm-256color
+!XTerm*termName: xterm-256color
+!UXTerm*termName: xterm-256color
 
 ! WINDOW ======================================================================
 ! Default window geometry
