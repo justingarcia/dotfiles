@@ -508,6 +508,7 @@ endfunction
 
 set noswapfile                  " Disable swapfile creation
 set directory^=$HOME/.vimswp//  " Swapfile directory (if enabled)
+let g:netrw_dirhistmax=0				" No .netrwhist
 
 " }}}
 " Plugins {{{
