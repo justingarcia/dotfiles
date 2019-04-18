@@ -57,7 +57,7 @@ log "-- INSTALLING FONTS --"
 sudo unlink /etc/fonts/conf.d/70-no-bitmaps.conf
 sudo ln -sf /etc/fonts/conf.avail/70-yes-bitmaps.conf /etc/fonts/conf.d/70-yes-bitmaps.conf
 sudo dpkg-reconfigure fontconfig
-sudo make -C $DOTFILES_DIR/fonts/ctrld-font
+#sudo make -C $DOTFILES_DIR/fonts/ctrld-font
 
 # Create Symlinks -------------------------------------------------------------
 log "-- CREATING SYMLINKS --"
