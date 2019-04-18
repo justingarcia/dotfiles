@@ -1,4 +1,4 @@
-vim/sessions/*
-nvim/autoload/*
-nvim/plugged/*
-tmux/resurrect/*
+vim/sessions/
+nvim/autoload/plug.vim
+nvim/plugged/
+tmux/resurrect/
