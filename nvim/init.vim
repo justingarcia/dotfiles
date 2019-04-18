@@ -1,10 +1,12 @@
 " Plugins =====================================================================
 " Auto-install vim-plug if not already installed
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+let autoload_plug_path = stdpath('config') . '/autoload/plug.vim'
+if !filereadable(autoload_plug_path)
+  silent execute '!curl -fLo ' . autoload_plug_path . ' --create-dirs
+    \ "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+unlet autoload_plug_path
 
 " Plugin directory
 call plug#begin('~/.config/nvim/plugged')
