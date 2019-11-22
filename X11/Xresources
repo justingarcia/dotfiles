@@ -16,13 +16,25 @@
 *.cursorBlink:              1
 
 ! FONT ========================================================================
-*.renderFont: false
-*.font: -ctrld-fixed-medium-r-normal--13-80-96-96-c-80-iso10646-1
-xterm*font: -ctrld-fixed-medium-r-normal--13-80-96-96-c-80-iso10646-1
+! Bitmap font
+!*.renderFont: false
+!*.font: -ctrld-fixed-medium-r-normal--13-80-96-96-c-80-iso10646-1
+!xterm*font: -ctrld-fixed-medium-r-normal--13-80-96-96-c-80-iso10646-1
+!*.boldMode:								false
+!*.alwaysBoldMode:						false
+!*.allowBoldFonts:						false
 
-*.boldMode:									false
-*.alwaysBoldMode:						false
-*.allowBoldFonts:						false
+! Render font
+*.faceName: DejaVu Sans Mono
+xterm*faceName: DejaVu Sans Mono
+*.faceSize: 9
+xterm*faceSize: 9
+*.renderFont: true
+xterm*renderFont: true
+
+! Chinese characters
+xterm*faceNameDoublesize: TakaoPGothic
+
 !*.boldFont:
 
 ! COLORSCHEME =================================================================

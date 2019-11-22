@@ -66,6 +66,9 @@ alias python='/usr/bin/python3.7'
 #export NVM_DIR="/home/justin/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
+# TexLive ---------------------------------------------------------------------
+export PATH="$PATH:/usr/local/texlive/2019/bin/x86_64-linux"
+
 # Blender ---------------------------------------------------------------------
 #export OCIO="$HOME/filmic-blender/config.ocio"
 

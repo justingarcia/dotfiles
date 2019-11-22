@@ -56,6 +56,8 @@ sudo apt-get -y install ncurses-base
 sudo apt-get -y install ncurses-term
 
 # Install Fonts ---------------------------------------------------------------
+# TODO: for ttf fonts -- create '.font' directory in 'home'
+# then copy ttf font folders there
 log "-- INSTALLING FONTS --"
 sudo unlink /etc/fonts/conf.d/70-no-bitmaps.conf
 sudo ln -sf /etc/fonts/conf.avail/70-yes-bitmaps.conf /etc/fonts/conf.d/70-yes-bitmaps.conf

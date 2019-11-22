@@ -100,6 +100,11 @@ hi StatusLineNC		ctermfg=8			ctermbg=15
 hi MoreMsg        ctermfg=10
 hi Question				ctermfg=10
 
+" TabLine ---------------------------------------------------------------------
+hi TabLine ctermfg=7 ctermbg=8 cterm=none
+hi TabLineSel ctermfg=15 ctermbg=0
+hi TabLineFill ctermfg=8 ctermbg=15
+
 " TabLine
 
 "   hi Cursor          ctermfg=16  ctermbg=253

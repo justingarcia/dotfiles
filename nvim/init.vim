@@ -61,8 +61,8 @@ set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:-
 " Formatting ------------------------------------------------------------------
 " Filetype dependent indenting (commented out--set by vim-plug)
 "filetype plugin indent on       
-" use 2 spaces for tabs
-set tabstop=2 softtabstop=2 shiftwidth=2
+" use 4 spaces for tabs
+set tabstop=4 softtabstop=4 shiftwidth=4
 " Disable auto comment insertion
 autocmd BufNewFile,BufRead,FileType,OptionSet * set formatoptions-=cro
 autocmd BufNewFile,BufRead,FileType,OptionSet * setlocal formatoptions-=cro
