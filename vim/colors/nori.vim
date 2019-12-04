@@ -5,7 +5,7 @@ if exists("syntax_on")
 	syntax reset
 endif
 
-let colors_name = "chinsei"
+let colors_name = "nori"
 
 " Color Definitions -----------------------------------------------------------
 " xterm=196 -> red
@@ -23,7 +23,7 @@ hi Comment				ctermfg=7
 hi Todo					ctermfg=196		ctermbg=NONE		cterm=underline
 
 " Statement Group -------------------------------------------------------------
-hi Statement			ctermfg=12 cterm=none
+hi Statement			ctermfg=10 cterm=none
 hi Operator				ctermfg=15 cterm=none
 hi Function 			ctermfg=15 
 "hi Conditional 		ctermfg=6
@@ -38,7 +38,8 @@ hi Constant				ctermfg=14
 "hi Float				ctermfg=13
 
 " Type Group ------------------------------------------------------------------
-hi Type					ctermfg=9 cterm=bold
+"hi Type					ctermfg=174 cterm=none
+hi Type					ctermfg=10 cterm=none
 "hi StorageClass
 "hi Structure
 "hi Typedef
@@ -78,7 +79,7 @@ hi CursorLineNr		ctermfg=3
 hi MatchParen ctermfg=3 ctermbg=0 cterm=bold
 
 " Search Highlighting ---------------------------------------------------------
-hi Search         ctermfg=0			ctermbg=12
+hi Search         ctermfg=0			ctermbg=9
 "hi QuickFixLine
 "hi Substitute
 

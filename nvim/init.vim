@@ -18,7 +18,8 @@ Plug 'mxw/vim-jsx'
 "Plug 'maxbane/vim-asm_ca65'
 
 " Editing ---------------------------------------------------------------------
-Plug 'jiangmiao/auto-pairs'
+"Plug 'tpope/vim-commentary'
+"Plug 'jiangmiao/auto-pairs'
 
 " Linting ---------------------------------------------------------------------
 "Plug 'w0rp/ale'
@@ -45,14 +46,18 @@ set hidden
 " UI --------------------------------------------------------------------------
 " Enable syntax processing
 syntax enable                   
+" vim/colors/nori.vim
+colorscheme nori
 " vim/colors/chinsei.vim
-colorscheme chinsei             
+"colorscheme chinsei             
 " vim/colors/okashi.vim
 "colorscheme okashi             
 " Show line numbers
 set number                      
 " Cursor settings
-set guicursor=a:blinkon1				
+"set guicursor=a:blinkon1				
+" Turn off paren highlighting (commented out)
+"let loaded_matchparen = 1
 " Vertical line indicating max line length
 let &colorcolumn=&textwidth+1		
 " Fill characters

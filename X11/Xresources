@@ -5,7 +5,10 @@
 
 ! WINDOW ======================================================================
 ! Default window geometry
-*.geometry:									80x43+1920+0
+! open on second screen
+!*.geometry:									80x43+1920+0
+! open on first screen
+*.geometry: 80x43+0+0
 
 *.borderless:               true
 *.internalBorder:           0
@@ -32,6 +35,11 @@ xterm*faceSize: 9
 *.renderFont: true
 xterm*renderFont: true
 
+! Bold fonts
+!*.boldMode:								false
+!*.alwaysBoldMode:						false
+!*.allowBoldFonts:						false
+
 ! Chinese characters
 xterm*faceNameDoublesize: TakaoPGothic
 
@@ -43,10 +51,11 @@ xterm*faceNameDoublesize: TakaoPGothic
 ! x230_Cornsilk1 ctermfg=230 guifg=#ffffd7 rgb=255,255,215
 *.foreground:               #ffffd7
 ! x161_DeepPink3 ctermfg=161 guifg=#d7005f rgb=215,0,95
-*.cursorColor:              #d7005f
+! x215_SandyBrown ctermfg=215 guifg=#ffaf5f rgb=255,175,95
+*.cursorColor:              #ffaf5f
 ! Black dark/light ------------------------------------------------------------
 ! x0_Black #000000	rgb(0,0,0)	hsl(0,0%,0%)
-*.color0:										#000000
+*.color0:					#000000
 ! "grey4" x234_Grey11	#1c1c1c	rgb(28,28,28)	hsl(0,0%,10%)
 *.color8:                   #1c1c1c
 ! Red dark/light --------------------------------------------------------------
@@ -56,24 +65,24 @@ xterm*faceNameDoublesize: TakaoPGothic
 *.color9:                   #d75f5f
 ! Green dark/light ------------------------------------------------------------
 ! x84_SeaGreen1	#5fffaf	rgb(95,255,175)	hsl(150,100%,68%)
-*.color2:										#5fffaf
-! x150_DarkSeaGreen3 ctermfg=150 guifg=#afd787 rgb=175,215,135
-*.color10:									#afd787
+*.color2:					#5fffaf
+! 193	DarkSeaGreen1	#d7ffaf	rgb(215,255,175)	hsl(90,100%,84%)
+*.color10:					#d7ffaf
 ! Yellow dark/light -----------------------------------------------------------
 ! x215_SandyBrown ctermfg=215 guifg=#ffaf5f rgb=255,175,95
 *.color3:                   #ffaf5f
-! x228_Khaki1	#ffff87	rgb(255,255,135)	hsl(60,100%,76%)
-*.color11:                  #ffff87
+! 229	Wheat1	#ffffaf	rgb(255,255,175)	hsl(60,100%,84%)
+*.color11:                  #ffffaf
 ! Blue dark/light -------------------------------------------------------------
 ! x039_DeepSkyBlue1 ctermfg=39 guifg=#00afff rgb=0,175,255
 *.color4:                   #00afff
-! x81_SteelBlue1	#5fd7ff	rgb(95,215,255)	hsl(195,100%,68%)
-*.color12:									#5fd7ff
+! 195	LightCyan1	#d7ffff	rgb(215,255,255)	hsl(180,100%,92%)
+*.color12:					#d7ffff
 ! Magenta dark/light ----------------------------------------------------------
 ! x135_MediumPurple2 ctermfg=135 guifg=#af5fff rgb=175,95,255
 *.color5:                   #af5fff
-! x182_Thistle3	#d7afd7	rgb(215,175,215)	hsl(300,33%,76%)
-*.color13:                  #d7afd7
+! 224	MistyRose1	#ffd7d7	rgb(255,215,215)	hsl(0,100%,92%)
+*.color13:                  #ffd7d7
 ! Cyan dark/light -------------------------------------------------------------
 ! x122_Aquamarine1 ctermfg=122 guifg=#87ffd7 rgb=135,255,215
 *.color6:                   #87ffd7
@@ -81,9 +90,10 @@ xterm*faceNameDoublesize: TakaoPGothic
 *.color14:                  #d7ffd7
 ! White dark/light ------------------------------------------------------------
 ! "grey2" x243_Grey46	#767676	rgb(118,118,118)	hsl(0,0%,46%)
-*.color7:                   #767676
+! x244_Grey50	#808080	rgb(128,128,128)	hsl(0,0%,50%)
+*.color7:                   #808080
 ! x230_Cornsilk1 ctermfg=230 guifg=#ffffd7 rgb=255,255,215
-*.color15:									#ffffd7
+*.color15:					#ffffd7
 
 ! URXVT =======================================================================
 ! TERM variable
